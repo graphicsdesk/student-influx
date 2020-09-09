@@ -3,7 +3,7 @@
 #####################
 
 # List file stubs to use to download SG data
-SG_FILE_STUBS := 2020-07-25
+SG_FILE_STUBS := 2020-09-0
 
 
 #############
@@ -31,8 +31,7 @@ DATES = $(addsuffix .csv,$(DATE_SLUGS))
 # SOCIAL DISTANCING #
 #####################
 
-tk: $(addprefix $(FILTER_DIR)/,$(DATES))
-
+filter: $(addprefix $(FILTER_DIR)/,$(DATES))
 $(FILTER_DIR)/%.csv: $(INPUT_TARGET)/%-social-distancing.csv
 	./main.py -filter $< > $@
 
