@@ -31,7 +31,7 @@ DATES = $(addsuffix .csv,$(DATE_SLUGS))
 # SOCIAL DISTANCING #
 #####################
 
-filter: $(addprefix $(FILTER_DIR)/,$(DATES))
+tk: $(addprefix $(FILTER_DIR)/,$(DATES))
 
 $(FILTER_DIR)/%.csv: $(INPUT_TARGET)/%-social-distancing.csv
 	./main.py -filter $< > $@
