@@ -7,4 +7,3 @@ Configure the data to be downloaded using the space-separated `SG_FILE_STUBS` li
 ## Analysis
 
 1. Download desired data with `make update-sg-data` (requires [parallel](https://github.com/spundhir/PARE/issues/4)).
-2. 

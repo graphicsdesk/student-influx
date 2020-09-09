@@ -55,3 +55,7 @@ update-sg-data:
 
 	# Unzip everything in parallel
 	- find $(INPUT_TARGET) -name '*.gz' -print0 | parallel -q0 gunzip -k
+
+	# (Optional) Remove compressed files
+	rm $(INPUT_TARGET)/*.gz
+	rm -r $(INPUT_TARGET)/2020
