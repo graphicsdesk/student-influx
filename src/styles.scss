@@ -2,3 +2,17 @@
 
 // Uncomment the following line before publishing a News story
 // @import "styles/news-ellipsis";
+
+#map-container svg {
+  display: block;
+  margin: 0 auto;
+
+  path {
+    fill: none;
+    stroke: #121212;
+  }
+
+  path.subdue {
+    stroke: #ddd;
+  }
+}
