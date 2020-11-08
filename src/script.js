@@ -1,6 +1,7 @@
 import textBalancer from 'text-balancer';
 import initiatePage from './scripts/page';
 import { intersectTop } from './scripts/utils';
+import makeMap from './scripts/map.js';
 
 import { spectate as spectateConfig } from '../package.json';
 
@@ -39,3 +40,7 @@ export function hamburgerTrigger() {
 if (window.innerWidth <= 460) {
   textBalancer.balanceText('#headline, .deck, .image-caption-text');
 }
+
+// Make map
+
+makeMap();

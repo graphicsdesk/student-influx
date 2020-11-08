@@ -17,8 +17,11 @@
     "sass": "^1.26.5"
   },
   "dependencies": {
+    "d3-geo": "^2.0.1",
+    "d3-selection": "^2.0.0",
     "intersection-observer": "^0.10.0",
-    "text-balancer": "^1.0.5"
+    "text-balancer": "^1.0.5",
+    "topojson-client": "^3.1.0"
   },
   "browserslist": [
     "defaults"
