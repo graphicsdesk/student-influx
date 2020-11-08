@@ -1,4 +1,4 @@
 .DS_Store
-
-social-distancing/
-data-*/
+.cache
+dist
+node_modules
