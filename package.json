@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "student-influx",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -33,6 +33,6 @@
     "USE_EYE_NAV": false,
     "USE_COVER_HED": false,
     "IS_EMBED": false,
-    "DOC_URL": null
+    "DOC_URL": "https://docs.google.com/document/d/1QIhR_KlGw2wpcLIvAEJS7qOXqhSJPEGb0GGeS00_4tY/edit"
   }
 }
