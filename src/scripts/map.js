@@ -46,6 +46,17 @@ function makeMap() {
   // Create the things that will become the slope chart (e.g. line, arrow, circles). @char
 
   console.log(centroids);
+  const circles = pathContainer
+    .selectAll('circle')
+    .data(centroids.features)
+    .enter()
+    .append('circle')
+  
+  const slopes = pathContainer
+    .selectAll('line')
+    .data(centroids.features)
+    .enter()
+    .append('line')
 
   // Expose a handleResize method that handles the things that depend on
   // width (path generator, paths, and svg)
@@ -60,12 +71,34 @@ function makeMap() {
     svg.attr('height', height);
 
     // Create the projection. Fit it to the census tracts that we care about
-    const projection = geoAlbersUsa().fitSize([width, height], tracts);
+    const albersprojection = geoAlbersUsa()
+      .rotate([10,10,0])
+      .fitSize([width, height], tracts);
     // Create the path generating function
-    const pathGenerator = geoPath(projection);
+    const pathGenerator = geoPath(albersprojection);
     // Set the `d` attribute to the path generator, which is called on the data
     // that we attached to the paths earlier
     paths.attr('d', pathGenerator);
+
+    circles
+      .attr('cx', d => albersprojection(d.geometry.coordinates)[0])
+      .attr('cy', d => albersprojection(d.geometry.coordinates)[1])
+      .attr('r', 2)
+    
+    slopes
+      .attr('x1', d => albersprojection(d.geometry.coordinates)[0])
+      .attr('y1', d => albersprojection(d.geometry.coordinates)[1])
+      .attr('x2', d => {
+        const slope = (d.properties.oct-d.properties.aug)/50
+        const x = 50*Math.cos(Math.atan(slope))
+        return albersprojection(d.geometry.coordinates)[0]+ x
+      })
+      .attr('y2', d => {
+        const slope = (d.properties.oct-d.properties.aug)/50
+        const y = 50*Math.sin(Math.atan(slope))
+        return albersprojection(d.geometry.coordinates)[1] - y
+      })
+      .attr('stroke','black')
   };
 }
 
