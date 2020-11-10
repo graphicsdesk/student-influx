@@ -1,5 +1,5 @@
 import { select } from 'd3-selection';
-import { geoPath, geoAlbersUsa } from 'd3-geo';
+import { geoPath, geoAlbers } from 'd3-geo';
 import { feature } from 'topojson-client';
 import influxData from '../../data/influx_data.json';
 import debounce from 'just-debounce';
@@ -10,10 +10,10 @@ const WIDTH = 960;
 
 // Make containers
 
-const div = select('#map-container');
-const svg = div.append('svg');
+const svg = select('#map');
 const pathContainer = svg.append('g');
-
+const baselineContainer = svg.append('g');
+const chartContainer = svg.append('g');
 // Extract census tract features (contains all tracts in Manhattan)
 
 const allTracts = feature(influxData, influxData.objects.tracts);
@@ -46,17 +46,29 @@ function makeMap() {
   // Create the things that will become the slope chart (e.g. line, arrow, circles). @char
 
   console.log(centroids);
-  const circles = pathContainer
+  const circles = chartContainer
     .selectAll('circle')
     .data(centroids.features)
     .enter()
     .append('circle')
   
-  const slopes = pathContainer
+  const slopes = chartContainer
     .selectAll('line')
     .data(centroids.features)
     .enter()
     .append('line')
+
+  const baseline = baselineContainer
+    .selectAll('line')
+    .data(centroids.features)
+    .enter()
+    .append('line')
+  
+  const text = chartContainer
+    .selectAll('text')
+    .data(centroids.features)
+    .enter()
+    .append('text')
 
   // Expose a handleResize method that handles the things that depend on
   // width (path generator, paths, and svg)
@@ -71,9 +83,9 @@ function makeMap() {
     svg.attr('height', height);
 
     // Create the projection. Fit it to the census tracts that we care about
-    const albersprojection = geoAlbersUsa()
-      .rotate([10,10,0])
-      .fitSize([width, height], tracts);
+    const albersprojection = geoAlbers()
+    .rotate([133, 10, 0])
+    .fitSize([width, height], tracts);
     // Create the path generating function
     const pathGenerator = geoPath(albersprojection);
     // Set the `d` attribute to the path generator, which is called on the data
@@ -83,7 +95,7 @@ function makeMap() {
     circles
       .attr('cx', d => albersprojection(d.geometry.coordinates)[0])
       .attr('cy', d => albersprojection(d.geometry.coordinates)[1])
-      .attr('r', 2)
+      .attr('r', 3)
     
     slopes
       .attr('x1', d => albersprojection(d.geometry.coordinates)[0])
@@ -99,6 +111,32 @@ function makeMap() {
         return albersprojection(d.geometry.coordinates)[1] - y
       })
       .attr('stroke','black')
+      .attr('marker-end', 'url(#map-arrow-open)')
+      .attr('stroke-width', 2)
+
+    text
+      .attr('x', d => {
+        const slope = (d.properties.oct-d.properties.aug)/50
+        const x = 50*Math.cos(Math.atan(slope))
+        return albersprojection(d.geometry.coordinates)[0]+ x + 5
+      })
+      .attr('y', d => {
+        const slope = (d.properties.oct-d.properties.aug)/50
+        const y = 50*Math.sin(Math.atan(slope))
+        return albersprojection(d.geometry.coordinates)[1] - y 
+      })
+      .text(d => {
+        const difference = d.properties.oct-d.properties.aug
+        if (difference > 0) return ('+' + difference)
+        else return '–' + Math.abs(difference);
+      })
+
+    baseline
+      .attr('x1', d => albersprojection(d.geometry.coordinates)[0])
+      .attr('y1', d => albersprojection(d.geometry.coordinates)[1])
+      .attr('x2', d => albersprojection(d.geometry.coordinates)[0]+50)
+      .attr('y2', d => albersprojection(d.geometry.coordinates)[1])
+      .attr('stroke','lightblue')
   };
 }
 

@@ -1,4 +1,4 @@
-@import "styles/spectate";
+@import 'styles/spectate';
 
 // Uncomment the following line before publishing a News story
 // @import "styles/news-ellipsis";
@@ -7,12 +7,18 @@
   display: block;
   margin: 0 auto;
 
-  path {
-    fill: none;
-    stroke: #121212;
-  }
+  g {
+    path {
+      fill: none;
+      stroke: #121212;
+    }
 
-  path.subdue {
-    stroke: #ddd;
+    path.subdue {
+      stroke: #ddd;
+    }
+
+    text {
+      font-family: $graphik;
+    }
   }
 }
