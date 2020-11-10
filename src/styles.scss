@@ -34,14 +34,6 @@ $campus-highlight: rgb(248, 113, 24);
     }
   }
 
-  text.white-background {
-    stroke: #fff;
-    opacity: 0.8;
-    stroke-width: 4;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
   g.baseline line {
     stroke: #bcbcbc;
   }
@@ -58,7 +50,7 @@ $campus-highlight: rgb(248, 113, 24);
     fill: #aaa;
   }
 
-  .campus-label {
+  g.campus-labels text {
     font-family: $graphik;
     dominant-baseline: hanging;
     text-anchor: middle;
@@ -71,7 +63,6 @@ $campus-highlight: rgb(248, 113, 24);
   .neighborhood-labels {
     text {
       font-family: $graphik;
-      font-style: 300;
       font-size: 14px;
       fill: #333;
       text-anchor: middle;
@@ -82,6 +73,20 @@ $campus-highlight: rgb(248, 113, 24);
     text:first-child {
       transform: translateY(23px);
     }
+
+    @media (max-width: 460px) {
+      text:last-child {
+        transform: translate(-15px, -30px);
+      }
+    }
+  }
+
+  text.white-background {
+    stroke: #fff;
+    opacity: 0.8;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 }
 

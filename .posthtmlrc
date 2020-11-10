@@ -10,17 +10,13 @@
         "body": [
           {
             "type": "text",
-            "value": "Leadin. Something to draw the reader in. Graphics is the only visuals and words desk at the Spectator."
-          },
-          {
-            "type": "text",
-            "value": "stuff outlined in black is what we consider ‘near campus’"
+            "value": "Leadin. Something to draw the reader in. Graphics is a visuals and words desk."
           },
           {
             "type": "graphic",
             "value": {
               "asset": "map.html",
-              "title": "Census tracts near campus saw large population increases"
+              "title": "Census tracts around campus saw large population increases between August and October"
             }
           },
           {

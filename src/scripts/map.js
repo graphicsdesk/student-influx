@@ -47,8 +47,14 @@ const riverLabel = svg
   .join('tspan')
   .text(d => d);
 const campusLabel = svg
+  .append('g')
+  .attr('class', 'campus-labels')
+  // Create separate groups for white background and black foreground
+  .selectAll('text')
+  .data([true, false])
+  .enter()
   .append('text')
-  .attr('class', 'campus-label')
+  .classed('white-background', d => d)
   .selectAll('tspan')
   .data(['Main', 'Campus'])
   .join('tspan')
