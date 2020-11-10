@@ -101,12 +101,12 @@ function makeMap() {
       .attr('x1', d => albersprojection(d.geometry.coordinates)[0])
       .attr('y1', d => albersprojection(d.geometry.coordinates)[1])
       .attr('x2', d => {
-        const slope = (d.properties.oct-d.properties.aug)/50
+        const slope = (d.properties.oct-d.properties.aug)/d.properties.aug
         const x = 50*Math.cos(Math.atan(slope))
         return albersprojection(d.geometry.coordinates)[0]+ x
       })
       .attr('y2', d => {
-        const slope = (d.properties.oct-d.properties.aug)/50
+        const slope = (d.properties.oct-d.properties.aug)/d.properties.aug
         const y = 50*Math.sin(Math.atan(slope))
         return albersprojection(d.geometry.coordinates)[1] - y
       })
@@ -115,20 +115,14 @@ function makeMap() {
       .attr('stroke-width', 2)
 
     text
-      .attr('x', d => {
-        const slope = (d.properties.oct-d.properties.aug)/50
-        const x = 50*Math.cos(Math.atan(slope))
-        return albersprojection(d.geometry.coordinates)[0]+ x + 5
-      })
-      .attr('y', d => {
-        const slope = (d.properties.oct-d.properties.aug)/50
-        const y = 50*Math.sin(Math.atan(slope))
-        return albersprojection(d.geometry.coordinates)[1] - y 
-      })
+      .attr('x', d => albersprojection(d.geometry.coordinates)[0]+5)
+      .attr('y', d => albersprojection(d.geometry.coordinates)[1]+16)
       .text(d => {
-        const difference = d.properties.oct-d.properties.aug
-        if (difference > 0) return ('+' + difference)
-        else return '–' + Math.abs(difference);
+        const difference = 100*(d.properties.oct-d.properties.aug)/d.properties.aug
+        console.log(d)
+        console.log(difference.toFixed(1))
+        if (difference > 0) return ('+' + difference.toFixed(1) + '%')
+        else return '–' + Math.abs(difference.toFixed(1))+ '%';
       })
 
     baseline
