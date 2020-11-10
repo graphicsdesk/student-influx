@@ -168,8 +168,8 @@ function makeMap() {
     svg.attr('height', height);
 
     const legend = select('.legend')
-      .attr('width',width/2)
-      .attr('height', height/3)
+      .attr('width', width / 2)
+      .attr('height', height / 3);
 
     // Create the projection
 
@@ -248,27 +248,28 @@ function makeMap() {
       .attr('y', function (_, i) {
         return albersprojection(this.parentNode.__data__.loc)[1] + i * 20;
       });
-    
-    legend.select('.baseline')
-      .attr('x1', d => (isMobile ? 40 : 230))
-      .attr('y1', d => (isMobile ? 80 : 150))
-      .attr('x2', d => (isMobile ? 90 : 280))
-      .attr('y2', d =>(isMobile ? 80 : 150))    
-    
-    legend.select('.slope')
-      .attr('x1', d => (isMobile ? 40 : 230))
-      .attr('y1', d => (isMobile ? 80 : 150))
-      .attr('x2', d => (isMobile ? 75.36 : 265.36))
-      .attr('y2', d =>(isMobile ? 44.64 : 114.64))
-    
-    legend.select('circle')
-      .attr('cx', d => (isMobile ? 40 : 230))
-      .attr('cy', d => (isMobile ? 80 : 150))
 
-    legend.select('text')
-      .attr('y', d => (isMobile ? 80 : 150))
-    legend.selectAll('tspan')
-      .attr('x', d => (isMobile ? 5 : 205))
+    legend
+      .selectAll('line')
+      .attr('x1', isMobile ? 40 : 230)
+      .attr('y1', isMobile ? 80 : 150)
+      .attr('x2', isMobile ? 90 : 280)
+      .attr('y2', isMobile ? 80 : 150);
+
+    legend
+      .select('.slope')
+      .attr('x1', isMobile ? 40 : 230)
+      .attr('y1', isMobile ? 80 : 150)
+      .attr('x2', isMobile ? 75.36 : 265.36)
+      .attr('y2', isMobile ? 44.64 : 114.64);
+
+    legend
+      .select('circle')
+      .attr('cx', isMobile ? 40 : 230)
+      .attr('cy', isMobile ? 80 : 150);
+
+    legend.select('text').attr('y', isMobile ? 80 : 150);
+    legend.selectAll('tspan').attr('x', isMobile ? 5 : 205);
   };
 }
 
