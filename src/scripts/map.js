@@ -52,23 +52,32 @@ function makeMap() {
     .enter()
     .append('circle');
 
-  const slopes = chartContainer
-    .selectAll('line')
-    .data(centroids.features)
-    .enter()
-    .append('line');
-
   const baseline = baselineContainer
     .selectAll('line')
     .data(centroids.features)
     .enter()
     .append('line');
 
+  const textBackground = chartContainer
+    .append('g')
+    .selectAll('text')
+    .data(centroids.features)
+    .enter()
+    .append('text')
+    .attr('class', 'white-background');
+
   const text = chartContainer
+    .append('g')
     .selectAll('text')
     .data(centroids.features)
     .enter()
     .append('text');
+
+  const slopes = chartContainer
+    .selectAll('line')
+    .data(centroids.features)
+    .enter()
+    .append('line');
 
   // Expose a handleResize method that handles the things that depend on
   // width (path generator, paths, and svg)
@@ -97,34 +106,35 @@ function makeMap() {
       .attr('cy', d => albersprojection(d.geometry.coordinates)[1])
       .attr('r', 3);
 
+    const endpointX = d => {
+      const slope = (d.properties.oct - d.properties.aug) / d.properties.aug;
+      const x = 50 * Math.cos(Math.atan(slope));
+      return albersprojection(d.geometry.coordinates)[0] + x;
+    };
+    const endpointY = d => {
+      const slope = (d.properties.oct - d.properties.aug) / d.properties.aug;
+      const y = 50 * Math.sin(Math.atan(slope));
+      return albersprojection(d.geometry.coordinates)[1] - y;
+    };
     slopes
       .attr('x1', d => albersprojection(d.geometry.coordinates)[0])
       .attr('y1', d => albersprojection(d.geometry.coordinates)[1])
-      .attr('x2', d => {
-        const slope = (d.properties.oct - d.properties.aug) / d.properties.aug;
-        const x = 50 * Math.cos(Math.atan(slope));
-        return albersprojection(d.geometry.coordinates)[0] + x;
-      })
-      .attr('y2', d => {
-        const slope = (d.properties.oct - d.properties.aug) / d.properties.aug;
-        const y = 50 * Math.sin(Math.atan(slope));
-        return albersprojection(d.geometry.coordinates)[1] - y;
-      })
+      .attr('x2', endpointX)
+      .attr('y2', endpointY)
       .attr('stroke', 'black')
       .attr('marker-end', 'url(#map-arrow-open)')
       .attr('stroke-width', 2);
 
-    text
-      .attr('x', d => albersprojection(d.geometry.coordinates)[0] + 5)
-      .attr('y', d => albersprojection(d.geometry.coordinates)[1] + 16)
-      .text(d => {
-        let difference =
-          (100 * (d.properties.oct - d.properties.aug)) / d.properties.aug;
-        difference =
-          difference < 10 ? difference.toFixed(1) : Math.round(difference);
-        if (difference > 0) return '+' + difference + '%';
-        else return '–' + Math.abs(difference) + '%';
-      });
+    const arrowLabel = d => {
+      let difference =
+        (100 * (d.properties.oct - d.properties.aug)) / d.properties.aug;
+      difference =
+        difference < 10 ? difference.toFixed(1) : Math.round(difference);
+      if (difference > 0) return '+' + difference + '%';
+      else return '–' + Math.abs(difference) + '%';
+    };
+    textBackground.attr('x', endpointX).attr('y', endpointY).text(arrowLabel);
+    text.attr('x', endpointX).attr('y', endpointY).text(arrowLabel);
 
     baseline
       .attr('x1', d => albersprojection(d.geometry.coordinates)[0])
