@@ -3,6 +3,8 @@
 // Uncomment the following line before publishing a News story
 // @import "styles/news-ellipsis";
 
+$campus-highlight: red;
+
 #map-container svg {
   display: block;
   margin: 0 auto;
@@ -11,6 +13,11 @@
     path {
       fill: none;
       stroke: #121212;
+    }
+
+    path.columbia-outline {
+      stroke: $campus-highlight;
+      stroke-width: 2.5;
     }
   }
 
@@ -51,14 +58,30 @@
     fill: #aaa;
   }
 
-  .neighborhood-labels text {
+  .campus-label {
     font-family: $graphik;
-    font-style: 300;
-    font-size: 14px;
-    fill: #333;
+    dominant-baseline: hanging;
     text-anchor: middle;
-    transform: translateY(-30px);
-    text-transform: uppercase;
+    transform: translateY(9px);
+    fill: $campus-highlight;
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .neighborhood-labels {
+    text {
+      font-family: $graphik;
+      font-style: 300;
+      font-size: 14px;
+      fill: #333;
+      text-anchor: middle;
+      transform: translateY(-30px);
+      text-transform: uppercase;
+    }
+
+    text:first-child {
+      transform: translateY(23px);
+    }
   }
 }
 

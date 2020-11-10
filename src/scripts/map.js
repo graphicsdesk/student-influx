@@ -11,6 +11,7 @@ import 'd3-jetpack';
 
 const WIDTH = 960;
 const ARROW_SIZE = 50;
+const CAMPUS_LABEL_LOC = [-73.96155830210468, 40.808667553331034];
 const labels = [
   {
     label: ['Morningside', 'Heights'],
@@ -43,6 +44,13 @@ const riverLabel = svg
   .attr('class', 'river-label')
   .selectAll('tspan')
   .data(['Hudson', 'River'])
+  .join('tspan')
+  .text(d => d);
+const campusLabel = svg
+  .append('text')
+  .attr('class', 'campus-label')
+  .selectAll('tspan')
+  .data(['Main', 'Campus'])
   .join('tspan')
   .text(d => d);
 
@@ -101,7 +109,11 @@ function makeMap() {
     .selectAll('path')
     .data(allTracts.features)
     .enter()
-    .append('path');
+    .append('path')
+    .classed(
+      'columbia-outline',
+      d => d.properties.census_tract === '36061020300',
+    );
 
   // Create the things that will become the slope chart (e.g. line, arrow, circles)
 
@@ -206,6 +218,10 @@ function makeMap() {
     riverLabel
       .attr('x', isMobile ? 0 : width / 5)
       .attr('y', (_, i) => height / 2 + i * 22);
+
+    campusLabel
+      .attr('x', albersprojection(CAMPUS_LABEL_LOC)[0])
+      .attr('y', (_, i) => albersprojection(CAMPUS_LABEL_LOC)[1] + i * 18);
 
     neighborhoodLabels
       .attr('x', function () {

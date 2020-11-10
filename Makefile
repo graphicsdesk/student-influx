@@ -5,6 +5,8 @@ data/influx_data.json: data/home_panel_change.csv data/tracts.geojson data/tract
 	-each 'census_tract = "36061" + ct2010' \
 	-filter-fields census_tract \
 	-join $< keys=census_tract,census_tract string-fields=census_tract \
+	-sort '+(census_tract === "36061020300")' \
+	-info \
 	-target tracts_centroids \
 	-filter 'aug !== null' \
 	-o format=topojson target=* $@
