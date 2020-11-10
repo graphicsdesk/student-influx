@@ -19,6 +19,19 @@
 
     text {
       font-family: $graphik;
+      dominant-baseline: hanging;
+      text-anchor: middle;
+      transform: translateY(11px);
+      fill: #121212;
+      font-size: 14px;
+    }
+
+    text.white-background {
+      stroke: #fff;
+      opacity: 0.8;
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
   }
 }

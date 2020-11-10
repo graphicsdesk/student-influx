@@ -50,25 +50,34 @@ function makeMap() {
     .selectAll('circle')
     .data(centroids.features)
     .enter()
-    .append('circle')
-  
-  const slopes = chartContainer
-    .selectAll('line')
-    .data(centroids.features)
-    .enter()
-    .append('line')
+    .append('circle');
 
   const baseline = baselineContainer
     .selectAll('line')
     .data(centroids.features)
     .enter()
-    .append('line')
-  
-  const text = chartContainer
+    .append('line');
+
+  const textBackground = chartContainer
+    .append('g')
     .selectAll('text')
     .data(centroids.features)
     .enter()
     .append('text')
+    .attr('class', 'white-background');
+
+  const text = chartContainer
+    .append('g')
+    .selectAll('text')
+    .data(centroids.features)
+    .enter()
+    .append('text');
+
+  const slopes = chartContainer
+    .selectAll('line')
+    .data(centroids.features)
+    .enter()
+    .append('line');
 
   // Expose a handleResize method that handles the things that depend on
   // width (path generator, paths, and svg)
@@ -84,8 +93,8 @@ function makeMap() {
 
     // Create the projection. Fit it to the census tracts that we care about
     const albersprojection = geoAlbers()
-    .rotate([133, 10, 0])
-    .fitSize([width, height], tracts);
+      .rotate([133, 10, 0])
+      .fitSize([width, height], tracts);
     // Create the path generating function
     const pathGenerator = geoPath(albersprojection);
     // Set the `d` attribute to the path generator, which is called on the data
@@ -95,42 +104,44 @@ function makeMap() {
     circles
       .attr('cx', d => albersprojection(d.geometry.coordinates)[0])
       .attr('cy', d => albersprojection(d.geometry.coordinates)[1])
-      .attr('r', 3)
-    
+      .attr('r', 3);
+
+    const endpointX = d => {
+      const slope = (d.properties.oct - d.properties.aug) / d.properties.aug;
+      const x = 50 * Math.cos(Math.atan(slope));
+      return albersprojection(d.geometry.coordinates)[0] + x;
+    };
+    const endpointY = d => {
+      const slope = (d.properties.oct - d.properties.aug) / d.properties.aug;
+      const y = 50 * Math.sin(Math.atan(slope));
+      return albersprojection(d.geometry.coordinates)[1] - y;
+    };
     slopes
       .attr('x1', d => albersprojection(d.geometry.coordinates)[0])
       .attr('y1', d => albersprojection(d.geometry.coordinates)[1])
-      .attr('x2', d => {
-        const slope = (d.properties.oct-d.properties.aug)/d.properties.aug
-        const x = 50*Math.cos(Math.atan(slope))
-        return albersprojection(d.geometry.coordinates)[0]+ x
-      })
-      .attr('y2', d => {
-        const slope = (d.properties.oct-d.properties.aug)/d.properties.aug
-        const y = 50*Math.sin(Math.atan(slope))
-        return albersprojection(d.geometry.coordinates)[1] - y
-      })
-      .attr('stroke','black')
+      .attr('x2', endpointX)
+      .attr('y2', endpointY)
+      .attr('stroke', 'black')
       .attr('marker-end', 'url(#map-arrow-open)')
-      .attr('stroke-width', 2)
+      .attr('stroke-width', 2);
 
-    text
-      .attr('x', d => albersprojection(d.geometry.coordinates)[0]+5)
-      .attr('y', d => albersprojection(d.geometry.coordinates)[1]+16)
-      .text(d => {
-        const difference = 100*(d.properties.oct-d.properties.aug)/d.properties.aug
-        console.log(d)
-        console.log(difference.toFixed(1))
-        if (difference > 0) return ('+' + difference.toFixed(1) + '%')
-        else return '–' + Math.abs(difference.toFixed(1))+ '%';
-      })
+    const arrowLabel = d => {
+      let difference =
+        (100 * (d.properties.oct - d.properties.aug)) / d.properties.aug;
+      difference =
+        difference < 10 ? difference.toFixed(1) : Math.round(difference);
+      if (difference > 0) return '+' + difference + '%';
+      else return '–' + Math.abs(difference) + '%';
+    };
+    textBackground.attr('x', endpointX).attr('y', endpointY).text(arrowLabel);
+    text.attr('x', endpointX).attr('y', endpointY).text(arrowLabel);
 
     baseline
       .attr('x1', d => albersprojection(d.geometry.coordinates)[0])
       .attr('y1', d => albersprojection(d.geometry.coordinates)[1])
-      .attr('x2', d => albersprojection(d.geometry.coordinates)[0]+50)
+      .attr('x2', d => albersprojection(d.geometry.coordinates)[0] + 50)
       .attr('y2', d => albersprojection(d.geometry.coordinates)[1])
-      .attr('stroke','lightblue')
+      .attr('stroke', 'lightblue');
   };
 }
 
