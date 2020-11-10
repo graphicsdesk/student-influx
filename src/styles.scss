@@ -1,4 +1,4 @@
-@import 'styles/spectate';
+@import "styles/spectate";
 
 // Uncomment the following line before publishing a News story
 // @import "styles/news-ellipsis";
@@ -12,7 +12,9 @@
       fill: none;
       stroke: #121212;
     }
+  }
 
+  g.text {
     text {
       font-family: $graphik;
       dominant-baseline: hanging;
@@ -20,30 +22,49 @@
       transform: translateY(11px);
       fill: #121212;
       font-size: 14px;
-    }
 
-    text.white-background {
-      stroke: #fff;
-      opacity: 0.8;
-      stroke-width: 4;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+      display: none;
     }
   }
-}
 
-g.baseline line {
-  stroke: black;
-  stroke-width: 0.5;
-}
+  text.white-background {
+    stroke: #fff;
+    opacity: 0.8;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
 
-g.slopes line {
-  marker-end: url(#map-arrow-open);
-  stroke-width: 2;
+  g.baseline line {
+    stroke: #cdcdcd;
+  }
+
+  g.slopes line {
+    marker-end: url(#map-arrow-open);
+    stroke-width: 2;
+  }
+
+  .river-label {
+    font-family: $graphik;
+    font-style: italic;
+    font-size: 16px;
+    fill: #aaa;
+  }
+
+  .neighborhood-labels text {
+    font-family: $graphik;
+    font-style: 300;
+    font-size: 14px;
+    fill: #333;
+    text-anchor: middle;
+    transform: translateY(-30px);
+    text-transform: uppercase;
+  }
 }
 
 .map-title {
   font-family: $graphik;
   font-weight: 700;
+  line-height: 1.4;
   font-size: 18px;
 }

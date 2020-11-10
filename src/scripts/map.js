@@ -11,6 +11,17 @@ import 'd3-jetpack';
 
 const WIDTH = 960;
 const ARROW_SIZE = 50;
+const labels = [
+  {
+    label: ['Morningside', 'Heights'],
+    loc: [-73.96653530947926, 40.805711419929914],
+  },
+  { label: ['Manhattanville'], loc: [-73.95314645865469, 40.81456772136083] },
+  {
+    label: ['Central', 'Harlem South'],
+    loc: [-73.95252558449528, 40.80322310573006],
+  },
+];
 
 // Make containers
 
@@ -20,11 +31,45 @@ const baselineContainer = svg.append('g').attr('class', 'baseline');
 const chartContainer = svg.append('g').attr('class', 'slopes');
 const textContainer = svg
   .append('g')
+  .attr('class', 'text')
   // Create separate groups for white background and black foreground
   .selectAll('g')
   .data([true, false])
   .enter()
   .append('g');
+
+const riverLabel = svg
+  .append('text')
+  .attr('class', 'river-label')
+  .selectAll('tspan')
+  .data(['Hudson', 'River'])
+  .join('tspan')
+  .text(d => d);
+
+const labelContainer = svg.append('g');
+const neighborhoodLabelsBg = labelContainer
+  .append('g')
+  .attr('class', 'neighborhood-labels')
+  .selectAll('text')
+  .data(labels)
+  .enter('text')
+  .append('text')
+  .attr('class', 'white-background')
+  .selectAll('tspan')
+  .data(d => d.label)
+  .join('tspan')
+  .text(d => d);
+const neighborhoodLabels = labelContainer
+  .append('g')
+  .attr('class', 'neighborhood-labels')
+  .selectAll('text')
+  .data(labels)
+  .enter('text')
+  .append('text')
+  .selectAll('tspan')
+  .data(d => d.label)
+  .join('tspan')
+  .text(d => d);
 
 // Extract census tract features (contains all tracts in Manhattan)
 
@@ -36,7 +81,7 @@ const allTracts = feature(influxData, influxData.objects.tracts);
 const tracts = {
   type: 'FeatureCollection',
   features: allTracts.features.filter(({ properties: { census_tract } }) =>
-    [36061018900, 36061021303].includes(+census_tract),
+    [36061018900, 36061021900].includes(+census_tract),
   ),
 };
 
@@ -58,7 +103,7 @@ function makeMap() {
     .enter()
     .append('path');
 
-  // Create the things that will become the slope chart (e.g. line, arrow, circles). @char
+  // Create the things that will become the slope chart (e.g. line, arrow, circles)
 
   const circles = chartContainer
     .selectAll('circle')
@@ -99,7 +144,8 @@ function makeMap() {
     // Recompute width and height; resize the svg
 
     const width = Math.min(WIDTH, document.documentElement.clientWidth - 30);
-    const height = width * (19 / 30);
+    const isMobile = width < 460;
+    const height = (width * (isMobile ? 36 : 20)) / 30;
     svg.attr('width', width);
     svg.attr('height', height);
 
@@ -121,12 +167,12 @@ function makeMap() {
     const y = d => albersprojection(d.geometry.coordinates)[1];
     const endpointX = d => {
       const slope = (d.properties.oct - d.properties.aug) / d.properties.aug;
-      const x = ARROW_SIZE * Math.cos(Math.atan(slope));
+      const x = ARROW_SIZE * Math.cos(Math.atan(slope * 2));
       return albersprojection(d.geometry.coordinates)[0] + x;
     };
     const endpointY = d => {
       const slope = (d.properties.oct - d.properties.aug) / d.properties.aug;
-      const y = ARROW_SIZE * Math.sin(Math.atan(slope));
+      const y = ARROW_SIZE * Math.sin(Math.atan(slope) * 2);
       return albersprojection(d.geometry.coordinates)[1] - y;
     };
 
@@ -156,6 +202,26 @@ function makeMap() {
       .attr('y1', y)
       .attr('x2', d => x(d) + ARROW_SIZE)
       .attr('y2', y);
+
+    riverLabel
+      .attr('x', isMobile ? 0 : width / 5)
+      .attr('y', (_, i) => height / 2 + i * 22);
+
+    neighborhoodLabels
+      .attr('x', function () {
+        return albersprojection(this.parentNode.__data__.loc)[0];
+      })
+      .attr('y', function (_, i) {
+        return albersprojection(this.parentNode.__data__.loc)[1] + i * 20;
+      });
+
+    neighborhoodLabelsBg
+      .attr('x', function () {
+        return albersprojection(this.parentNode.__data__.loc)[0];
+      })
+      .attr('y', function (_, i) {
+        return albersprojection(this.parentNode.__data__.loc)[1] + i * 20;
+      });
   };
 }
 
