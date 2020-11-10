@@ -10,7 +10,7 @@ import 'd3-jetpack';
 // Set constants
 
 const WIDTH = 960;
-const ARROW_SIZE = 50;
+const ARROW_SIZE = 45;
 const CAMPUS_LABEL_LOC = [-73.96155830210468, 40.808667553331034];
 const labels = [
   {

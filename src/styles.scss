@@ -3,7 +3,7 @@
 // Uncomment the following line before publishing a News story
 // @import "styles/news-ellipsis";
 
-$campus-highlight: red;
+$campus-highlight: rgb(248, 113, 24);
 
 #map-container svg {
   display: block;
@@ -43,7 +43,7 @@ $campus-highlight: red;
   }
 
   g.baseline line {
-    stroke: #cdcdcd;
+    stroke: #bcbcbc;
   }
 
   g.slopes line {
