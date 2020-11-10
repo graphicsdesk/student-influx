@@ -5,28 +5,39 @@ import { interpolateSpectral as interpolateViridis } from 'd3-scale-chromatic';
 import { feature } from 'topojson-client';
 import influxData from '../../data/influx_data.json';
 import debounce from 'just-debounce';
+import 'd3-jetpack';
 
 // Set constants
 
 const WIDTH = 960;
+const ARROW_SIZE = 50;
 
 // Make containers
 
 const svg = select('#map');
-const pathContainer = svg.append('g');
-const baselineContainer = svg.append('g');
-const chartContainer = svg.append('g');
+const pathContainer = svg.append('g').attr('class', 'features');
+const baselineContainer = svg.append('g').attr('class', 'baseline');
+const chartContainer = svg.append('g').attr('class', 'slopes');
+const textContainer = svg
+  .append('g')
+  // Create separate groups for white background and black foreground
+  .selectAll('g')
+  .data([true, false])
+  .enter()
+  .append('g');
 
 // Extract census tract features (contains all tracts in Manhattan)
 
 const allTracts = feature(influxData, influxData.objects.tracts);
 
-// Create a separate GeoJSON object that holds only the tracts we're interested
-// in (useful for focusing the map in on the tracts that we actually care about)
+// Create a separate GeoJSON object that holds only the tracts we want to fit
+// the projection around
 
 const tracts = {
   type: 'FeatureCollection',
-  features: allTracts.features.filter(d => d.properties.aug !== null),
+  features: allTracts.features.filter(({ properties: { census_tract } }) =>
+    [36061018900, 36061021303].includes(+census_tract),
+  ),
 };
 
 // Extract census tract centroids
@@ -45,8 +56,7 @@ function makeMap() {
     .selectAll('path')
     .data(allTracts.features)
     .enter()
-    .append('path')
-    .classed('subdue', d => d.properties.aug === null);
+    .append('path');
 
   // Create the things that will become the slope chart (e.g. line, arrow, circles). @char
 
@@ -54,30 +64,23 @@ function makeMap() {
     .selectAll('circle')
     .data(centroids.features)
     .enter()
-    .append('circle');
+    .append('circle')
+    .attr('r', 3);
 
   const baseline = baselineContainer
     .selectAll('line')
     .data(centroids.features)
     .enter()
-    .append('line')
-    .attr('stroke', 'black')
-    .attr('stroke-width', 0.5);
+    .append('line');
 
-  const textBackground = chartContainer
-    .append('g')
+  const text = textContainer
     .selectAll('text')
     .data(centroids.features)
     .enter()
     .append('text')
-    .attr('class', 'white-background');
-
-  const text = chartContainer
-    .append('g')
-    .selectAll('text')
-    .data(centroids.features)
-    .enter()
-    .append('text');
+    .classed('white-background', function () {
+      return this.parentNode.__data__;
+    });
 
   const slopes = chartContainer
     .selectAll('line')
@@ -87,75 +90,72 @@ function makeMap() {
     .attr('stroke', d =>
       colorScale((d.properties.oct - d.properties.aug) / d.properties.aug),
     )
-    .attr('marker-end', 'url(#map-arrow-open)')
-    .attr('stroke-width', 2);
+    .attr('stroke', 'black');
 
   // Expose a handleResize method that handles the things that depend on
   // width (path generator, paths, and svg)
 
   return function handleResize() {
-    // Recompute width and height
+    // Recompute width and height; resize the svg
+
     const width = Math.min(WIDTH, document.documentElement.clientWidth - 30);
     const height = width * (19 / 30);
-
-    // Resize the svg
     svg.attr('width', width);
     svg.attr('height', height);
 
-    // Create the projection. Fit it to the census tracts that we care about
+    // Create the projection
+
     const albersprojection = geoAlbers()
-      .rotate([133, 10, 0])
+      .rotate([122, 0, 0])
       .fitSize([width, height], tracts);
-    console.log('albersprojection :>> ', albersprojection);
-    // Create the path generating function
+
+    // Create the path generating function; set the `d` attribute to the path
+    // generator, which is called on the data we attached to the paths earlier
+
     const pathGenerator = geoPath(albersprojection);
-    // Set the `d` attribute to the path generator, which is called on the data
-    // that we attached to the paths earlier
     paths.attr('d', pathGenerator);
 
-    circles
-      .attr('cx', d => albersprojection(d.geometry.coordinates)[0])
-      .attr('cy', d => albersprojection(d.geometry.coordinates)[1])
-      .attr('r', 3);
+    // Define some commonly used coordinate functions
 
+    const x = d => albersprojection(d.geometry.coordinates)[0];
+    const y = d => albersprojection(d.geometry.coordinates)[1];
     const endpointX = d => {
       const slope = (d.properties.oct - d.properties.aug) / d.properties.aug;
-      const x = 50 * Math.cos(Math.atan(slope));
+      const x = ARROW_SIZE * Math.cos(Math.atan(slope));
       return albersprojection(d.geometry.coordinates)[0] + x;
     };
     const endpointY = d => {
       const slope = (d.properties.oct - d.properties.aug) / d.properties.aug;
-      const y = 50 * Math.sin(Math.atan(slope));
+      const y = ARROW_SIZE * Math.sin(Math.atan(slope));
       return albersprojection(d.geometry.coordinates)[1] - y;
     };
+
+    // Modify the positions of the elements
+
+    circles.attr('cx', x).attr('cy', y);
     slopes
-      .attr('x1', d => albersprojection(d.geometry.coordinates)[0])
-      .attr('y1', d => albersprojection(d.geometry.coordinates)[1])
+      .attr('x1', x)
+      .attr('y1', y)
       .attr('x2', endpointX)
       .attr('y2', endpointY);
 
-    const arrowLabel = d => {
-      let difference =
-        (100 * (d.properties.oct - d.properties.aug)) / d.properties.aug;
-      difference =
-        difference < 10 ? difference.toFixed(1) : Math.round(difference);
-      if (difference > 0) return '+' + difference + '%';
-      else return '–' + Math.abs(difference) + '%';
-    };
-    textBackground
-      .attr('x', d => albersprojection(d.geometry.coordinates)[0])
-      .attr('y', d => albersprojection(d.geometry.coordinates)[1])
-      .text(arrowLabel);
     text
-      .attr('x', d => albersprojection(d.geometry.coordinates)[0])
-      .attr('y', d => albersprojection(d.geometry.coordinates)[1])
-      .text(arrowLabel);
+      .attr('x', x)
+      .attr('y', y)
+      .text(d => {
+        let difference =
+          (100 * (d.properties.oct - d.properties.aug)) / d.properties.aug;
+        difference =
+          difference < 10 ? difference.toFixed(1) : Math.round(difference);
+        if (difference > 0) return '+' + difference + '%';
+        else return '–' + Math.abs(difference) + '%';
+      });
 
     baseline
-      .attr('x1', d => albersprojection(d.geometry.coordinates)[0])
-      .attr('y1', d => albersprojection(d.geometry.coordinates)[1])
-      .attr('x2', d => albersprojection(d.geometry.coordinates)[0] + 50)
-      .attr('y2', d => albersprojection(d.geometry.coordinates)[1]);
+      .attr('x1', x)
+      .attr('y1', y)
+      .attr('x2', d => x(d) + ARROW_SIZE)
+      .attr('y2', y);
   };
 }
 

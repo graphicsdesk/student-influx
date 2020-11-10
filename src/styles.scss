@@ -13,10 +13,6 @@
       stroke: #121212;
     }
 
-    path.subdue {
-      stroke: #ddd;
-    }
-
     text {
       font-family: $graphik;
       dominant-baseline: hanging;
@@ -34,6 +30,16 @@
       stroke-linejoin: round;
     }
   }
+}
+
+g.baseline line {
+  stroke: black;
+  stroke-width: 0.5;
+}
+
+g.slopes line {
+  marker-end: url(#map-arrow-open);
+  stroke-width: 2;
 }
 
 .map-title {
