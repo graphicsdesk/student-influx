@@ -19,7 +19,8 @@
           {
             "type": "graphic",
             "value": {
-              "asset": "map.html"
+              "asset": "map.html",
+              "title": "Census tracts near campus saw large population increases"
             }
           },
           {

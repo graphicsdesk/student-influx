@@ -1,5 +1,7 @@
 import { select } from 'd3-selection';
 import { geoPath, geoAlbers } from 'd3-geo';
+import { scaleSequential } from 'd3-scale';
+import { interpolateSpectral as interpolateViridis } from 'd3-scale-chromatic';
 import { feature } from 'topojson-client';
 import influxData from '../../data/influx_data.json';
 import debounce from 'just-debounce';
@@ -14,6 +16,7 @@ const svg = select('#map');
 const pathContainer = svg.append('g');
 const baselineContainer = svg.append('g');
 const chartContainer = svg.append('g');
+
 // Extract census tract features (contains all tracts in Manhattan)
 
 const allTracts = feature(influxData, influxData.objects.tracts);
@@ -36,6 +39,8 @@ function makeMap() {
   // Create the paths that will become census tracts.
   // The `d` attribute won't be set until the resize function is called.
 
+  const colorScale = scaleSequential(interpolateViridis).domain([-0.5, 0.5]);
+
   const paths = pathContainer
     .selectAll('path')
     .data(allTracts.features)
@@ -45,7 +50,6 @@ function makeMap() {
 
   // Create the things that will become the slope chart (e.g. line, arrow, circles). @char
 
-  console.log(centroids);
   const circles = chartContainer
     .selectAll('circle')
     .data(centroids.features)
@@ -56,7 +60,9 @@ function makeMap() {
     .selectAll('line')
     .data(centroids.features)
     .enter()
-    .append('line');
+    .append('line')
+    .attr('stroke', 'black')
+    .attr('stroke-width', 0.5);
 
   const textBackground = chartContainer
     .append('g')
@@ -77,7 +83,12 @@ function makeMap() {
     .selectAll('line')
     .data(centroids.features)
     .enter()
-    .append('line');
+    .append('line')
+    .attr('stroke', d =>
+      colorScale((d.properties.oct - d.properties.aug) / d.properties.aug),
+    )
+    .attr('marker-end', 'url(#map-arrow-open)')
+    .attr('stroke-width', 2);
 
   // Expose a handleResize method that handles the things that depend on
   // width (path generator, paths, and svg)
@@ -95,6 +106,7 @@ function makeMap() {
     const albersprojection = geoAlbers()
       .rotate([133, 10, 0])
       .fitSize([width, height], tracts);
+    console.log('albersprojection :>> ', albersprojection);
     // Create the path generating function
     const pathGenerator = geoPath(albersprojection);
     // Set the `d` attribute to the path generator, which is called on the data
@@ -120,10 +132,7 @@ function makeMap() {
       .attr('x1', d => albersprojection(d.geometry.coordinates)[0])
       .attr('y1', d => albersprojection(d.geometry.coordinates)[1])
       .attr('x2', endpointX)
-      .attr('y2', endpointY)
-      .attr('stroke', 'black')
-      .attr('marker-end', 'url(#map-arrow-open)')
-      .attr('stroke-width', 2);
+      .attr('y2', endpointY);
 
     const arrowLabel = d => {
       let difference =
@@ -133,15 +142,20 @@ function makeMap() {
       if (difference > 0) return '+' + difference + '%';
       else return '–' + Math.abs(difference) + '%';
     };
-    textBackground.attr('x', endpointX).attr('y', endpointY).text(arrowLabel);
-    text.attr('x', endpointX).attr('y', endpointY).text(arrowLabel);
+    textBackground
+      .attr('x', d => albersprojection(d.geometry.coordinates)[0])
+      .attr('y', d => albersprojection(d.geometry.coordinates)[1])
+      .text(arrowLabel);
+    text
+      .attr('x', d => albersprojection(d.geometry.coordinates)[0])
+      .attr('y', d => albersprojection(d.geometry.coordinates)[1])
+      .text(arrowLabel);
 
     baseline
       .attr('x1', d => albersprojection(d.geometry.coordinates)[0])
       .attr('y1', d => albersprojection(d.geometry.coordinates)[1])
       .attr('x2', d => albersprojection(d.geometry.coordinates)[0] + 50)
-      .attr('y2', d => albersprojection(d.geometry.coordinates)[1])
-      .attr('stroke', 'lightblue');
+      .attr('y2', d => albersprojection(d.geometry.coordinates)[1]);
   };
 }
 
