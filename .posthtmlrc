@@ -13,15 +13,15 @@
             "value": "When Columbia and Barnard announced housing cancellations in the fall, 14,000 students still moved to New York City. A thousand were granted housing on campus, and the remaining 13,000 found residency scattered across the city with thousands around Morningside Heights."
           },
           {
+            "type": "text",
+            "value": "Those living off-campus this semester entered a New York rental market upended by the COVID-19 crisis- and some housing experts fear they have inserted themselves into the city’s landscape as dangerously competitive renters, which means … (whats the implication?)."
+          },
+          {
             "type": "graphic",
             "value": {
               "asset": "map.html",
               "title": "Census tracts around campus saw large population increases between August and October"
             }
-          },
-          {
-            "type": "text",
-            "value": "Those living off-campus this semester entered a New York rental market upended by the COVID-19 crisis- and some housing experts fear they have inserted themselves into the city’s landscape as dangerously competitive renters, which means … (whats the implication?)."
           },
           {
             "type": "text",
@@ -37,16 +37,16 @@
           },
           {
             "type": "text",
-            "value": "<i>Charlotte Li is a Graphics deputy editor. She can be contacted at </i><a href=\"mailto:charlotte.li@columbiaspectator.com\"><i>charlotte.li@columbiaspectator.com</i></a><i>.</i>"
+            "value": "<i>Deputy News Editor Abby Melbourne can be contacted at </i><a href=\"mailto:abby.melbourne@columbiaspectator.com\"><i>abby.melbourne@columbiaspectator.com</i></a><i>. Follow Spectator on Twitter at </i><a href=\"https://twitter.com/ColumbiaSpec?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor\"><i>@ColumbiaSpec</i></a><i>.</i>"
           },
           {
             "type": "text",
-            "value": "<i>Jun Yi Zhang is a Graphics reporter. She can be contacted at </i><a href=\"mailto:junyi.zhang@columbiaspectator.com\"><i>junyi.zhang@columbiaspectator.com</i></a><i>.</i>"
+            "value": "<i>News Editor Stephanie Lai can be contacted at </i><a href=\"mailto:stephanie.lai@columbiaspectator.com\"><i>stephanie.lai@columbiaspectator.com</i></a><i>. Follow her on Twitter </i><a href=\"https://twitter.com/stephaniealai\"><i>@stephaniealai</i></a><i>.</i>"
           }
         ],
         "headline": "Rent story",
         "date": "November 10, 2020",
-        "byline": "By Abby Melbourne and Stephanie Lai\nGraphic by Charlotte Li",
+        "byline": "By <a href=\"https://www.columbiaspectator.com/contributors/Abby-Melbourne\">Abby Melbourne</a> and <a href=\"https://www.columbiaspectator.com/contributors/Stephanie-Lai\">Stephanie Lai</a>\nGraphic by <a href=\"https://www.columbiaspectator.com/contributors/Charlotte-Li\">Charlotte Li</a>",
         "USE_NEWS_NAV": false,
         "USE_EYE_NAV": false,
         "USE_COVER_HED": false,
