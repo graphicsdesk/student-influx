@@ -24,6 +24,9 @@
         <switch expression="item.type">
           <case n="'graphic'">
             <div class="graphic">
+              <if condition="item.value.asset === 'map.html'">
+                <include src="map.html"></include>
+              </if>
             </div>
           </case>
         </switch>

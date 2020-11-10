@@ -10,7 +10,7 @@
         "body": [
           {
             "type": "text",
-            "value": "Leadin. Something to draw the reader in. Graphics is a visuals and words desk."
+            "value": "When Columbia and Barnard announced housing cancellations in the fall, 14,000 students still moved to New York City. A thousand were granted housing on campus, and the remaining 13,000 found residency scattered across the city with thousands around Morningside Heights."
           },
           {
             "type": "graphic",
@@ -21,6 +21,22 @@
           },
           {
             "type": "text",
+            "value": "Those living off-campus this semester entered a New York rental market upended by the COVID-19 crisis- and some housing experts fear they have inserted themselves into the city’s landscape as dangerously competitive renters, which means … (whats the implication?)."
+          },
+          {
+            "type": "text",
+            "value": "At the beginning of the crisis in March 2020, New York placed a temporary ban on evictions across the state, before limiting the rule’s scope to tenants on unemployment or with other COVID-19 related financial difficulties. After a series of several eviction moratorium extensions, Governor Cuomo announced in late September that tenants would be protected until the beginning of 2021. The measures accompany battles across the country to instate more robust rent freezes."
+          },
+          {
+            "type": "text",
+            "value": "With the New York rental market in complete upheaval, all boroughs have seen record low median rents in comparison to the past decade. Manhattan alone has fallen below $3000- marking the first time that three boroughs have seen year-over-year rent declines. As the likelihood of a COVID-19 vaccine becomes increasingly imminent, both landlords and housing lenders are eager to take advantage of a restored market. JPMorgan has limited the terms so-called “jumbo loans”- those over $765,000 - that make up 95 percent of the Manhattan real estate market. Landlords are similarly searching for wealthier tenants."
+          },
+          {
+            "type": "text",
+            "value": "Between March 1 and May 1, many Columbia students were among the 5 percent of residents who left the city. While lower-income neighborhoods had moderate decreases in population, the wealthiest areas of New York saw population decreases of 40 percent or more."
+          },
+          {
+            "type": "text",
             "value": "<i>Charlotte Li is a Graphics deputy editor. She can be contacted at </i><a href=\"mailto:charlotte.li@columbiaspectator.com\"><i>charlotte.li@columbiaspectator.com</i></a><i>.</i>"
           },
           {
@@ -28,9 +44,9 @@
             "value": "<i>Jun Yi Zhang is a Graphics reporter. She can be contacted at </i><a href=\"mailto:junyi.zhang@columbiaspectator.com\"><i>junyi.zhang@columbiaspectator.com</i></a><i>.</i>"
           }
         ],
-        "headline": "an interesting map",
-        "date": "November 9, 2020",
-        "byline": "By <a href=\"https://www.columbiaspectator.com/contributors/Charlotte-Li\">Charlotte Li</a>\nEdited by <a href=\"https://www.columbiaspectator.com/contributors/Jun-Yi-Zhang\">Jun Yi Zhang</a>",
+        "headline": "Rent story",
+        "date": "November 10, 2020",
+        "byline": "By Abby Melbourne and Stephanie Lai\nGraphic by Charlotte Li",
         "USE_NEWS_NAV": false,
         "USE_EYE_NAV": false,
         "USE_COVER_HED": false,
