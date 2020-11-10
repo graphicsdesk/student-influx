@@ -90,6 +90,31 @@ $campus-highlight: rgb(248, 113, 24);
   }
 }
 
+#legend {
+  position: absolute;
+
+  svg {
+    margin: 5 auto;
+  }
+
+  .slope {
+    marker-end: url(#map-arrow-open);
+    stroke-width: 2;
+  }
+
+  .baseline {
+    stroke: #bcbcbc;
+  }
+
+  circle {
+    fill: black;
+  }
+
+  text {
+    font-family: $graphik;
+  }
+}
+
 .map-title {
   font-family: $graphik;
   font-weight: 700;
