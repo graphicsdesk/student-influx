@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "parcel src/index.html --global script",
-    "build": "parcel build src/index.html --global script --public-url . --no-content-hash",
+    "build": "parcel build src/index.html --global script --public-url . --no-content-hash --no-source-maps",
     "postinstall": "patch-package"
   },
   "devDependencies": {
