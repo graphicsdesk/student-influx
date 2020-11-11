@@ -34,7 +34,7 @@
           },
           {
             "type": "text",
-            "value": "With the New York rental market in complete upheaval, all boroughs have seen record low median rents in comparison to the past decade. Manhattan alone has fallen below $3000- marking the first time that three boroughs have seen year-over-year rent declines. As the likelihood of a COVID-19 vaccine becomes increasingly imminent, both landlords and housing lenders are eager to take advantage of a restored market, including students returning to colleges across the city."
+            "value": "With the New York rental market in complete upheaval, all boroughs have seen record low median rents in comparison to the past decade. Manhattan alone has fallen below $3000—- marking the first time that three boroughs have seen year-over-year rent declines. As the likelihood of a COVID-19 vaccine becomes increasingly imminent, both landlords and housing lenders are eager to take advantage of a restored market, including students returning to colleges across the city."
           },
           {
             "type": "text",
@@ -46,7 +46,7 @@
           },
           {
             "type": "text",
-            "value": "Instead, the increased interest in the area could drive prices up as demand for housing increases among ."
+            "value": "Instead, the increased interest in the area could drive prices up as demand for housing increases among wealthier potential tenants."
           },
           {
             "type": "text",
@@ -62,15 +62,23 @@
           },
           {
             "type": "text",
-            "value": "David Hanzal, a member of the Community Board 9 housing, land use, and zoning committee, said the influx of students in the neighborhood could create a false perception that the neighborhood has a high demand, which could in turn lead to higher rent prices. However, he said, after students move back onto campus, landlords may continue to keep prices high despite demand dropping back to its usual rate."
+            "value": "[Related: <a href=\"https://www.columbiaspectator.com/news/2020/04/28/landlords-are-waiting-to-pounce-covid-19-casts-grim-future-for-renters-confronted-by-wave-of-evictions/\">‘Landlords are waiting to pounce’: COVID-19 casts grim future for renters confronted by wave of evictions</a>]"
           },
           {
             "type": "text",
-            "value": "Alternatively, another concern could arise if students who lived off campus decide to stay off campus and continue to take up housing in the community."
+            "value": "David Hanzal, a member of the Community Board 9 housing, land use, and zoning committee, said the influx of students in the neighborhood could create a false perception that the neighborhood has a high demand, which could in turn lead to higher rent prices. In addition, landlords may continue to keep prices high despite demand dropping back to its usual rate after students move back onto campus, he said."
           },
           {
             "type": "text",
-            "value": "“When you fill these vacancies with students realtors and landlords think the actual market is fine, but they’ve just put a bandaid over it,” Hanzal said. “It looks like a solid market when it's not, and now that students can rent those, they can keep those rents at a higher rate.”"
+            "value": "Alternatively, another concern could arise if students who lived off campus in the fall decide to stay off campus and continue to take up housing in the community."
+          },
+          {
+            "type": "text",
+            "value": "The issue: the number of students seeking off-campus will not likely stay at its current rate in future years once the University reinstates housing contracts. In other words, the demand"
+          },
+          {
+            "type": "text",
+            "value": "“When you fill these vacancies with students, realtors and landlords think the actual market is fine, but they’ve just put a bandaid over it,” Hanzal said. “It looks like a solid market when it's not, and now that students can rent those, they can keep those rents at a higher rate.”"
           },
           {
             "type": "text",
@@ -87,10 +95,6 @@
           {
             "type": "text",
             "value": "“I miss coming back and seeing my friends when the elevator doors open,” she said. “I totally understand if we won’t be allowed to socialize, but I still think that’s a big part of living on campus.”"
-          },
-          {
-            "type": "text",
-            "value": "[Related: <a href=\"https://www.columbiaspectator.com/news/2020/04/28/landlords-are-waiting-to-pounce-covid-19-casts-grim-future-for-renters-confronted-by-wave-of-evictions/\">‘Landlords are waiting to pounce’: COVID-19 casts grim future for renters confronted by wave of evictions</a>]"
           },
           {
             "type": "text",
@@ -136,6 +140,7 @@
         "date": "November 10, 2020",
         "headline": "‘Competing interests’: Columbia cancelled housing contracts, so students moved into the city.",
         "byline": "By <a href=\"https://www.columbiaspectator.com/contributors/Abby-Melbourne\">Abby Melbourne</a> and <a href=\"https://www.columbiaspectator.com/contributors/Stephanie-Lai\">Stephanie Lai</a>\nGraphic by <a href=\"https://www.columbiaspectator.com/contributors/Charlotte-Li\">Charlotte Li</a>",
+        "footer": "Our data analysis is <a href=\"https://github.com/graphicsdesk/student-influx\">open source</a>.",
         "USE_NEWS_NAV": false,
         "USE_EYE_NAV": false,
         "USE_COVER_HED": false,
