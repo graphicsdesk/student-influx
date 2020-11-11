@@ -7,19 +7,21 @@ import { DEFS, LABELS, CAMPUS_LABEL_LOC } from './constants';
 import influxData2020 from '../../data/2020-influx_data.json';
 import influxData2019 from '../../data/2019-influx_data.json';
 import debounce from 'just-debounce';
-import 'd3-jetpack';
 
 // Set constants
 
 const WIDTH = 840;
 const ARROW_SIZE = 45;
+const mapsContainer = select('#maps-container');
 
 // Main function that draws the map
 
 function makeMap(influxData, mapId) {
   // Make containers
 
-  const svg = select(mapId).html(DEFS);
+  const div = mapsContainer.append('div').attr('class', 'map-container');
+  const svg = div.append('svg').attr('id', mapId).html(DEFS);
+
   const pathContainer = svg.append('g').attr('class', 'features');
   const baselineContainer = svg.append('g').attr('class', 'baseline');
   const chartContainer = svg.append('g').attr('class', 'slopes');
@@ -77,6 +79,8 @@ function makeMap(influxData, mapId) {
     .data(d => d.label)
     .join('tspan')
     .text(d => d);
+
+  const legend = select('.legend');
 
   // Extract census tract features (contains all tracts in Manhattan)
 
@@ -144,10 +148,10 @@ function makeMap(influxData, mapId) {
     )
     .attr('stroke', 'black');
 
-  // Expose a handleResize method that handles the things that depend on
+  // Make a handleResize method that handles the things that depend on
   // width (path generator, paths, and svg)
 
-  return function handleResize() {
+  function handleResize() {
     // Recompute width and height; resize the svg
 
     const width = Math.min(WIDTH, document.documentElement.clientWidth - 30);
@@ -155,10 +159,6 @@ function makeMap(influxData, mapId) {
     const height = (width * (isMobile ? 36 : 20)) / 30;
     svg.attr('width', width);
     svg.attr('height', height);
-
-    const legend = select('.legend')
-      .attr('width', width / 2)
-      .attr('height', height / 3);
 
     // Create the projection
 
@@ -240,34 +240,31 @@ function makeMap(influxData, mapId) {
 
     legend
       .selectAll('line')
-      .attr('x1', isMobile ? 40 : 230)
-      .attr('y1', isMobile ? 80 : 150)
-      .attr('x2', isMobile ? 90 : 280)
-      .attr('y2', isMobile ? 80 : 150);
+      .attr('x1', 0)
+      .attr('y1', 0)
+      .attr('x2', 50)
+      .attr('y2', 0);
 
     legend
       .select('.slope')
-      .attr('x1', isMobile ? 40 : 230)
-      .attr('y1', isMobile ? 80 : 150)
-      .attr('x2', isMobile ? 75.36 : 265.36)
-      .attr('y2', isMobile ? 44.64 : 114.64);
+      .attr('x1', 0)
+      .attr('y1', 0)
+      .attr('x2', 25)
+      .attr('y2', -36);
 
-    legend
-      .select('circle')
-      .attr('cx', isMobile ? 40 : 230)
-      .attr('cy', isMobile ? 80 : 150);
+    legend.select('circle').attr('cx', 0).attr('cy', 0);
 
-    legend.select('text').attr('y', isMobile ? 80 : 150);
-    legend.selectAll('tspan').attr('x', isMobile ? 5 : 205);
-  };
+    legend.select('text').attr('y', 0);
+    legend.selectAll('tspan').attr('x', 0);
+  }
+
+  // Call the resize function once; attach it to a resize listener
+
+  handleResize();
+  window.addEventListener('resize', debounce(handleResize, 400));
 }
 
-// Call big bois
+// Call the big fn
 
-const handleResize = makeMap(influxData2020, '#map1');
-handleResize();
-window.addEventListener('resize', debounce(handleResize, 400));
-
-const handleResize2 = makeMap(influxData2019, '#map2');
-handleResize2();
-window.addEventListener('resize', debounce(handleResize2, 400));
+makeMap(influxData2020, '#map1');
+makeMap(influxData2019, '#map2');

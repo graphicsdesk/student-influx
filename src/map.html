@@ -1,8 +1,6 @@
-<p class="g-body map-title">{{ item.value.title }}</p>
-
-<div id="map-container">
+<div class="g-body">
   <div id="legend">
-    <svg class="legend">
+    <svg class="legend" width="60" height="60">
       <line class="baseline" stroke="grey"></line>
       <line class="slope" stroke="black"></line>
       <circle r="3"></circle>
@@ -12,11 +10,7 @@
       </text>
     </svg>
   </div>
-  <svg id="map1">
-  </svg>
+  <p class="map-title">{{ item.value.title }}</p>
 </div>
 
-<div id="map-container">
-  <svg id="map2">
-  </svg>
-</div>
+<div id="maps-container"></div>
