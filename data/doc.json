@@ -8,14 +8,6 @@
       "value": "When Columbia and Barnard announced housing cancellations for the fall, 14,000 students still moved to New York City. One thousand were granted housing on campus, and the remaining 13,000 found residency scattered across the city with thousands living around Morningside Heights."
     },
     {
-      "type": "graphic",
-      "value": {
-        "asset": "map.html",
-        "title": "As school started, some census tracts near campus saw <b>larger population increases</b> in 2020 than in 2019",
-        "caption": "Population increases were measured between the last weeks of August and October of each year. They are estimates made using data provided by the location analysis company <a href=\"https://www.safegraph.com/covid-19-data-consortium\">SafeGraph</a>. Graphic by <a href=\"https://www.columbiaspectator.com/contributors/Charlotte-Li\">Charlotte Li</a> and <a href=\"https://www.columbiaspectator.com/contributors/Jason-Kao\">Jason Kao</a>."
-      }
-    },
-    {
       "type": "text",
       "value": "With the New York rental market in complete upheaval, all boroughs have seen record low median rents in comparison to the past decade. Manhattan’s median rent alone has fallen below $3000—marking the first time that three of the five boroughs have seen year-over-year rent declines."
     },
@@ -34,6 +26,14 @@
     {
       "type": "text",
       "value": "Instead, the increased interest in the area could drive prices up as demand for housing increases among wealthier potential tenants. According to housing experts, the influx of students living off-campus this semester entered a New York rental market upended by the COVID-19 crisis as dangerously competitive renters, which could contribute to rising rent prices across West Harlem."
+    },
+    {
+      "type": "graphic",
+      "value": {
+        "asset": "map.html",
+        "title": "As school started, some census tracts near campus saw <b>larger population increases</b> in 2020 than in 2019",
+        "caption": "Population increases were measured between the last weeks of August and October of each year. They are estimates made using data provided by the location analysis company <a href=\"https://www.safegraph.com/covid-19-data-consortium\">SafeGraph</a>. Graphic by <a href=\"https://www.columbiaspectator.com/contributors/Charlotte-Li\">Charlotte Li</a> and <a href=\"https://www.columbiaspectator.com/contributors/Jason-Kao\">Jason Kao</a>."
+      }
     },
     {
       "type": "text",
