@@ -74,7 +74,7 @@
           },
           {
             "type": "text",
-            "value": "The issue: the number of students seeking off-campus will not likely stay at its current rate in future years once the University reinstates housing contracts. In other words, the demand"
+            "value": "The issue: the number of students seeking off-campus will not likely stay at its current rate in future years once the University reinstates housing contracts. In other words, the demand for housing now may not sustain itself in the long-term, but rent prices could remain at the rate set in the short term."
           },
           {
             "type": "text",
@@ -98,11 +98,11 @@
           },
           {
             "type": "text",
-            "value": "To Chapple, it is difficult to predict what the long-term ramifications of an influx of off-campus housing seeking students will mean for the city. The future will largely depend on which neighborhoods will experience concentration of students.  Upper Manhattan, like much of the Bronx, is experiencing ongoing displacement of residents. Displacement when not coupled with robust investment, however, does not signal impending gentrification."
+            "value": "According to Chapple, it is difficult to predict what the long-term ramifications of an influx of off-campus housing seeking students will mean for the city. The future will largely depend on which neighborhoods will experience concentration of students.  Upper Manhattan, like much of the Bronx, is experiencing ongoing displacement of residents. Displacement when not coupled with robust investment, however, does not signal impending gentrification, she noted."
           },
           {
             "type": "text",
-            "value": "“ There’s just an ongoing population churn and there’s just sort of a pattern of landlords displacing tenants as a way of eeking out every cent of rent they can get from a property,” she said. “Whatever low income folks are left in those areas close by campus they might be at risk as higher income people, even students, come into those neighborhoods.”"
+            "value": "“There’s just an ongoing population churn and there’s just sort of a pattern of landlords displacing tenants as a way of eeking out every cent of rent they can get from a property,” she said. “Whatever low income folks are left in those areas close by campus they might be at risk as higher income people, even students, come into those neighborhoods.”"
           },
           {
             "type": "text",
@@ -141,7 +141,7 @@
         "headline": "‘Competing interests’: Columbia cancelled housing contracts, so students moved into the city.",
         "byline": "By <a href=\"https://www.columbiaspectator.com/contributors/Abby-Melbourne\">Abby Melbourne</a> and <a href=\"https://www.columbiaspectator.com/contributors/Stephanie-Lai\">Stephanie Lai</a>\nGraphic by <a href=\"https://www.columbiaspectator.com/contributors/Charlotte-Li\">Charlotte Li</a>",
         "footer": "Our data analysis is <a href=\"https://github.com/graphicsdesk/student-influx\">open source</a>.",
-        "USE_NEWS_NAV": false,
+        "USE_NEWS_NAV": true,
         "USE_EYE_NAV": false,
         "USE_COVER_HED": false,
         "IS_EMBED": false,
