@@ -11,8 +11,8 @@ import debounce from 'just-debounce';
 // Set constants
 
 const WIDTH = 840;
-const ARROW_SIZE = 45;
 const mapsContainer = select('#maps-container');
+let arrowSize;
 
 // Main function that draws the map
 
@@ -167,6 +167,7 @@ function makeMap(mapId) {
     const width = Math.min(WIDTH, document.documentElement.clientWidth - 30);
     const isMobile = width < 460;
     const height = (width * (isMobile ? 36 : 27)) / 30;
+    arrowSize = isMobile ? 32 : 45;
     svg.attr('width', width);
     svg.attr('height', height);
 
@@ -188,12 +189,12 @@ function makeMap(mapId) {
     const y = d => albersprojection(d.geometry.coordinates)[1];
     const endpointX = d => {
       const slope = (d.properties.oct - d.properties.aug) / d.properties.aug;
-      const x = ARROW_SIZE * Math.cos(Math.atan(slope * 2));
+      const x = arrowSize * Math.cos(Math.atan(slope * 2));
       return albersprojection(d.geometry.coordinates)[0] + x;
     };
     const endpointY = d => {
       const slope = (d.properties.oct - d.properties.aug) / d.properties.aug;
-      const y = ARROW_SIZE * Math.sin(Math.atan(slope) * 2);
+      const y = arrowSize * Math.sin(Math.atan(slope) * 2);
       return albersprojection(d.geometry.coordinates)[1] - y;
     };
 
@@ -226,7 +227,7 @@ function makeMap(mapId) {
     baseline
       .attr('x1', x)
       .attr('y1', y)
-      .attr('x2', d => x(d) + ARROW_SIZE)
+      .attr('x2', d => x(d) + arrowSize)
       .attr('y2', y);
 
     riverLabel
@@ -269,6 +270,6 @@ const mapTitle = select('p.map-title');
 mapTitle.html(
   mapTitle
     .html()
-    .replace('2020', `<span style="color:${c20}">2020</span>`)
-    .replace('2019', `<span style="color:${c19}">2019</span>`),
+    .replace('2020', `<span style="color: ${c20}">2020</span>`)
+    .replace('2019', `<span style="color: ${c19}">2019</span>`),
 );

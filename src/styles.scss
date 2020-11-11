@@ -5,6 +5,8 @@
 
 $campus-highlight: rgb(255, 148, 0);
 
+$baseline-color: #aaa;
+
 .map-container svg {
   display: block;
   margin: 0 auto;
@@ -35,7 +37,7 @@ $campus-highlight: rgb(255, 148, 0);
   }
 
   g.baseline line {
-    stroke: #bcbcbc;
+    stroke: $baseline-color;
   }
 
   g.slopes-20 line {
@@ -83,7 +85,8 @@ $campus-highlight: rgb(255, 148, 0);
 
     @media (max-width: 460px) {
       text:last-child {
-        transform: translate(-15px, -30px);
+        // transform: translate(-15px, -30px);
+        display: none;
       }
     }
   }
@@ -103,6 +106,10 @@ $campus-highlight: rgb(255, 148, 0);
 
   svg {
     overflow: visible;
+
+    .baseline {
+      stroke: $baseline-color;
+    }
   }
 
   .slope {
@@ -111,6 +118,10 @@ $campus-highlight: rgb(255, 148, 0);
 
   .year {
     transform: translate(2px, -2px);
+  }
+
+  .pct-label {
+    transform: translate(5px, -22px);
   }
 
   .baseline {

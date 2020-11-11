@@ -3,16 +3,11 @@
     <svg class="legend" width="60" height="60">
       <line
         class="baseline"
-        stroke="#bcbcbc"
         x1="0"
         y1="0"
         x2="50"
         y2="0"
       ></line>
-      <text y="0">
-        <tspan x="0" dy="1.2em">50 percent</tspan>
-        <tspan x="0" dy="1.2em">increase</tspan>
-      </text>
 
       <line
         class="slope"
@@ -23,6 +18,24 @@
         y2="-36"
         marker-end="url(#map-arrow-black)"
       ></line>
+      <text y="-36" class="pct-label">
+        <tspan x="25" dy="1.2em">Grew by</tspan>
+        <tspan x="25" dy="1.2em">50 percent</tspan>
+      </text>
+
+      <line
+        class="slope"
+        stroke="black"
+        x1="0"
+        y1="0"
+        x2="25"
+        y2="36"
+        marker-end="url(#map-arrow-black)"
+      ></line>
+      <text y="36" class="pct-label">
+        <tspan x="25" dy="1.2em">Fell by</tspan>
+        <tspan x="25" dy="1.2em">50 percent</tspan>
+      </text>
       <!-- <line
         class="slope"
         stroke="#aaa"

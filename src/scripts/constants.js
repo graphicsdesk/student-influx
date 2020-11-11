@@ -1,5 +1,11 @@
+// Colors of different arrows and lines
+
 export const c20 = 'rgb(24, 125, 131)';
 export const c19 = 'rgb(132, 185, 216)';
+
+export const baselineColor = '#ababab';
+
+// <defs> for SVG
 
 export const DEFS = `<defs>
   <marker
@@ -34,6 +40,8 @@ export const DEFS = `<defs>
   </marker>
 </defs>`;
 
+// Neighborhood labels
+
 export const LABELS = [
   {
     label: ['Morningside', 'Heights'],
@@ -45,5 +53,7 @@ export const LABELS = [
     loc: [-73.95252558449528, 40.80322310573006],
   },
 ];
+
+// Campus label geolocation
 
 export const CAMPUS_LABEL_LOC = [-73.96155830210468, 40.808667553331034];
