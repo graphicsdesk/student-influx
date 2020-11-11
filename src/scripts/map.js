@@ -10,17 +10,21 @@ import debounce from 'just-debounce';
 
 // Set constants
 
-const WIDTH = 840;
+const WIDTH = 680;
 const ARROW_SIZE = 45;
 const mapsContainer = select('#maps-container');
 
 // Main function that draws the map
 
-function makeMap(influxData, mapId) {
+function makeMap(influxData, year) {
   // Make containers
 
   const div = mapsContainer.append('div').attr('class', 'map-container');
-  const svg = div.append('svg').attr('id', mapId).html(DEFS);
+  div.append('p').attr('class', 'map-title year-label').text(year);
+  const svg = div
+    .append('svg')
+    .attr('id', 'map-' + year)
+    .html(DEFS);
 
   const pathContainer = svg.append('g').attr('class', 'features');
   const baselineContainer = svg.append('g').attr('class', 'baseline');
@@ -92,7 +96,7 @@ function makeMap(influxData, mapId) {
   const tracts = {
     type: 'FeatureCollection',
     features: allTracts.features.filter(({ properties: { census_tract } }) =>
-      [36061018900, 36061021900].includes(+census_tract),
+      [36061018900, 36061021303].includes(+census_tract),
     ),
   };
 
@@ -156,7 +160,7 @@ function makeMap(influxData, mapId) {
 
     const width = Math.min(WIDTH, document.documentElement.clientWidth - 30);
     const isMobile = width < 460;
-    const height = (width * (isMobile ? 36 : 20)) / 30;
+    const height = (width * 36) / 30;
     svg.attr('width', width);
     svg.attr('height', height);
 
@@ -215,7 +219,7 @@ function makeMap(influxData, mapId) {
       .attr('y2', y);
 
     riverLabel
-      .attr('x', isMobile ? 0 : width / 5)
+      .attr('x', isMobile ? 0 : width / 10)
       .attr('y', (_, i) => height / 2 + i * 22);
 
     campusLabel
@@ -266,5 +270,5 @@ function makeMap(influxData, mapId) {
 
 // Call the big fn
 
-makeMap(influxData2020, '#map1');
-// makeMap(influxData2019, '#map2');
+makeMap(influxData2019, 2019);
+makeMap(influxData2020, 2020);
