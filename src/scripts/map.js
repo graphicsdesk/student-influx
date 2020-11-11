@@ -1,26 +1,24 @@
 import { select } from 'd3-selection';
 import { geoPath, geoAlbers } from 'd3-geo';
-import { scaleSequential } from 'd3-scale';
-import { interpolateSpectral as interpolateViridis } from 'd3-scale-chromatic';
 import { feature } from 'topojson-client';
-import { DEFS, LABELS, CAMPUS_LABEL_LOC, c20, c19 } from './constants';
+import { DEFS, LABELS, CAMPUS_LABEL_LOC, c20, c19, shadedColor } from './constants';
 import influxData2020 from '../../data/2020-influx_data.json';
 import influxData2019 from '../../data/2019-influx_data.json';
 import debounce from 'just-debounce';
 
 // Set constants
 
-const WIDTH = 840;
+const WIDTH = 780;
 const mapsContainer = select('#maps-container');
 let arrowSize;
 
 // Main function that draws the map
 
-function makeMap(mapId) {
+function makeMap() {
   // Make containers
 
   const div = mapsContainer.append('div').attr('class', 'map-container');
-  const svg = div.append('svg').attr('id', mapId).html(DEFS);
+  const svg = div.append('svg').html(DEFS);
 
   const pathContainer = svg.append('g').attr('class', 'features');
   const baselineContainer = svg.append('g').attr('class', 'baseline');
@@ -166,7 +164,7 @@ function makeMap(mapId) {
 
     const width = Math.min(WIDTH, document.documentElement.clientWidth - 30);
     const isMobile = width < 460;
-    const height = (width * (isMobile ? 36 : 27)) / 30;
+    const height = (width * (isMobile ? 36 : 29)) / 30;
     arrowSize = isMobile ? 32 : 45;
     svg.attr('width', width);
     svg.attr('height', height);
@@ -263,13 +261,13 @@ function makeMap(mapId) {
 
 // Call the big fn
 
-// makeMap(influxData2019, '#map2019');
-makeMap(influxData2020, '#map2020');
+makeMap();
 
 const mapTitle = select('p.map-title');
 mapTitle.html(
   mapTitle
     .html()
     .replace('2020', `<span style="color: ${c20}">2020</span>`)
-    .replace('2019', `<span style="color: ${c19}">2019</span>`),
+    .replace('2019', `<span style="color: ${c19}">2019</span>`)
+    .replace('<b>', `<b style="background-color: ${shadedColor}">`),
 );

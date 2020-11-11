@@ -124,6 +124,21 @@ $baseline-color: #aaa;
     transform: translate(5px, -22px);
   }
 
+  .pct-label-mobile {
+    display: none;
+  }
+
+  @media (max-width: 500px) {
+    .pct-label-desktop {
+      display: none;
+    }
+    .pct-label-mobile {
+      display: block;
+    }
+
+    transform: translateY(146px);
+  }
+
   .baseline {
     stroke: #bcbcbc;
   }
@@ -142,4 +157,10 @@ $baseline-color: #aaa;
   font-weight: 700;
   line-height: 1.4;
   font-size: 18px;
+  margin-bottom: 25px;
+
+  b {
+    padding: 4px;
+    border-radius: 3px;
+  }
 }

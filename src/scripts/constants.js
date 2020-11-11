@@ -1,9 +1,11 @@
 // Colors of different arrows and lines
 
-export const c20 = 'rgb(24, 125, 131)';
+// export const c20 = 'rgb(24, 125, 131)';
+export const c20 = 'rgb(33, 140, 146)';
 export const c19 = 'rgb(132, 185, 216)';
 
 export const baselineColor = '#ababab';
+export const shadedColor = '#e4e4e4';
 
 // <defs> for SVG
 

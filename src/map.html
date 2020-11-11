@@ -18,9 +18,12 @@
         y2="-36"
         marker-end="url(#map-arrow-black)"
       ></line>
-      <text y="-36" class="pct-label">
+      <text y="-36" class="pct-label pct-label-desktop">
         <tspan x="25" dy="1.2em">Grew by</tspan>
         <tspan x="25" dy="1.2em">50 percent</tspan>
+      </text>
+      <text y="-36" class="pct-label pct-label-mobile">
+        <tspan x="25" dy="1.2em">+50%</tspan>
       </text>
 
       <line
@@ -32,9 +35,12 @@
         y2="36"
         marker-end="url(#map-arrow-black)"
       ></line>
-      <text y="36" class="pct-label">
+      <text y="36" class="pct-label pct-label-desktop">
         <tspan x="25" dy="1.2em">Fell by</tspan>
         <tspan x="25" dy="1.2em">50 percent</tspan>
+      </text>
+      <text y="36" class="pct-label pct-label-mobile">
+        <tspan x="25" dy="1.2em">–50%</tspan>
       </text>
       <!-- <line
         class="slope"
@@ -60,7 +66,7 @@
       <circle r="3" cx="0" cy="0"></circle>
     </svg>
   </div>
-  <p class="map-title">{{ item.value.title }}</p>
+  <p class="map-title">{{{ item.value.title }}}</p>
 </div>
 
 <div id="maps-container"></div>

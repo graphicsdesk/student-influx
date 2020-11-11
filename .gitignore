@@ -8,4 +8,5 @@ node_modules
 .Rproj.user
 
 safegraph-analysis/*.csv
-data/20*
+data/*.json
+data/*.csv
