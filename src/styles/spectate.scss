@@ -417,24 +417,24 @@ header {
   height: 20px;
 }
 
+.image-caption-text {
+  font-size: 15px;
+  font-family: $georgia;
+  color: #666;
+  margin: 7px 0 0 0;
+  // padding: 0 $gbody-padding / 2;
+  line-height: 1.3;
+
+  .image-credit {
+    color: #999;
+  }
+}
+
 .image {
   margin: 30px auto 25px auto;
 
   img {
     width: 100%;
-  }
-
-  .image-caption-text {
-    font-size: 15px;
-    font-family: $georgia;
-    color: #666;
-    margin: 7px 0 0 0;
-    padding: 0 $gbody-padding / 2;
-    line-height: 1.3;
-
-    .image-credit {
-      color: #999;
-    }
   }
 
   .overlay-container {

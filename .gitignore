@@ -7,5 +7,5 @@ node_modules
 .Rhistory
 .Rproj.user
 
-safegraph/*.csv
+safegraph-analysis/*.csv
 data/20*
