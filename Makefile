@@ -1,4 +1,6 @@
-data/influx_data.json: data/home_panel_change.csv data/tracts.geojson data/tracts_centroids.geojson
+all: data/2019-influx_data.json data/2020-influx_data.json
+
+data/%-influx_data.json: data/%-home_panel_change.csv data/tracts.geojson data/tracts_centroids.geojson
 	mapshaper $(filter-out $<,$^) combine-files \
 	-filter 'boro_name === "Manhattan"' \
 	-clean \
@@ -6,7 +8,6 @@ data/influx_data.json: data/home_panel_change.csv data/tracts.geojson data/tract
 	-filter-fields census_tract \
 	-join $< keys=census_tract,census_tract string-fields=census_tract \
 	-sort '+(census_tract === "36061020300")' \
-	-info \
 	-target tracts_centroids \
 	-filter 'aug !== null' \
 	-o format=topojson target=* $@

@@ -2,6 +2,10 @@
 .cache
 dist
 node_modules
+
 .Rproj.user/
 .Rhistory
 .Rproj.user
+
+safegraph/*.csv
+data/20*

@@ -3,109 +3,98 @@ import { geoPath, geoAlbers } from 'd3-geo';
 import { scaleSequential } from 'd3-scale';
 import { interpolateSpectral as interpolateViridis } from 'd3-scale-chromatic';
 import { feature } from 'topojson-client';
-import influxData from '../../data/influx_data.json';
+import { DEFS, LABELS, CAMPUS_LABEL_LOC } from './constants';
+import influxData2020 from '../../data/2020-influx_data.json';
+import influxData2019 from '../../data/2019-influx_data.json';
 import debounce from 'just-debounce';
 import 'd3-jetpack';
 
 // Set constants
 
-const WIDTH = 960;
+const WIDTH = 840;
 const ARROW_SIZE = 45;
-const CAMPUS_LABEL_LOC = [-73.96155830210468, 40.808667553331034];
-const labels = [
-  {
-    label: ['Morningside', 'Heights'],
-    loc: [-73.96653530947926, 40.805711419929914],
-  },
-  { label: ['Manhattanville'], loc: [-73.95314645865469, 40.81456772136083] },
-  {
-    label: ['Central', 'Harlem South'],
-    loc: [-73.95252558449528, 40.80322310573006],
-  },
-];
-
-// Make containers
-
-const svg = select('#map');
-const pathContainer = svg.append('g').attr('class', 'features');
-const baselineContainer = svg.append('g').attr('class', 'baseline');
-const chartContainer = svg.append('g').attr('class', 'slopes');
-const textContainer = svg
-  .append('g')
-  .attr('class', 'text')
-  // Create separate groups for white background and black foreground
-  .selectAll('g')
-  .data([true, false])
-  .enter()
-  .append('g');
-
-const riverLabel = svg
-  .append('text')
-  .attr('class', 'river-label')
-  .selectAll('tspan')
-  .data(['Hudson', 'River'])
-  .join('tspan')
-  .text(d => d);
-const campusLabel = svg
-  .append('g')
-  .attr('class', 'campus-labels')
-  // Create separate groups for white background and black foreground
-  .selectAll('text')
-  .data([true, false])
-  .enter()
-  .append('text')
-  .classed('white-background', d => d)
-  .selectAll('tspan')
-  .data(['Main', 'Campus'])
-  .join('tspan')
-  .text(d => d);
-
-const labelContainer = svg.append('g');
-const neighborhoodLabelsBg = labelContainer
-  .append('g')
-  .attr('class', 'neighborhood-labels')
-  .selectAll('text')
-  .data(labels)
-  .enter('text')
-  .append('text')
-  .attr('class', 'white-background')
-  .selectAll('tspan')
-  .data(d => d.label)
-  .join('tspan')
-  .text(d => d);
-const neighborhoodLabels = labelContainer
-  .append('g')
-  .attr('class', 'neighborhood-labels')
-  .selectAll('text')
-  .data(labels)
-  .enter('text')
-  .append('text')
-  .selectAll('tspan')
-  .data(d => d.label)
-  .join('tspan')
-  .text(d => d);
-
-// Extract census tract features (contains all tracts in Manhattan)
-
-const allTracts = feature(influxData, influxData.objects.tracts);
-
-// Create a separate GeoJSON object that holds only the tracts we want to fit
-// the projection around
-
-const tracts = {
-  type: 'FeatureCollection',
-  features: allTracts.features.filter(({ properties: { census_tract } }) =>
-    [36061018900, 36061021900].includes(+census_tract),
-  ),
-};
-
-// Extract census tract centroids
-
-const centroids = feature(influxData, influxData.objects.tracts_centroids);
 
 // Main function that draws the map
 
-function makeMap() {
+function makeMap(influxData, mapId) {
+  // Make containers
+
+  const svg = select(mapId).html(DEFS);
+  const pathContainer = svg.append('g').attr('class', 'features');
+  const baselineContainer = svg.append('g').attr('class', 'baseline');
+  const chartContainer = svg.append('g').attr('class', 'slopes');
+  const textContainer = svg
+    .append('g')
+    .attr('class', 'text')
+    // Create separate groups for white background and black foreground
+    .selectAll('g')
+    .data([true, false])
+    .enter()
+    .append('g');
+
+  const riverLabel = svg
+    .append('text')
+    .attr('class', 'river-label')
+    .selectAll('tspan')
+    .data(['Hudson', 'River'])
+    .join('tspan')
+    .text(d => d);
+  const campusLabel = svg
+    .append('g')
+    .attr('class', 'campus-labels')
+    // Create separate groups for white background and black foreground
+    .selectAll('text')
+    .data([true, false])
+    .enter()
+    .append('text')
+    .classed('white-background', d => d)
+    .selectAll('tspan')
+    .data(['Main', 'Campus'])
+    .join('tspan')
+    .text(d => d);
+
+  const labelContainer = svg.append('g');
+  const neighborhoodLabelsBg = labelContainer
+    .append('g')
+    .attr('class', 'neighborhood-labels')
+    .selectAll('text')
+    .data(LABELS)
+    .enter('text')
+    .append('text')
+    .attr('class', 'white-background')
+    .selectAll('tspan')
+    .data(d => d.label)
+    .join('tspan')
+    .text(d => d);
+  const neighborhoodLabels = labelContainer
+    .append('g')
+    .attr('class', 'neighborhood-labels')
+    .selectAll('text')
+    .data(LABELS)
+    .enter('text')
+    .append('text')
+    .selectAll('tspan')
+    .data(d => d.label)
+    .join('tspan')
+    .text(d => d);
+
+  // Extract census tract features (contains all tracts in Manhattan)
+
+  const allTracts = feature(influxData, influxData.objects.tracts);
+
+  // Create a separate GeoJSON object that holds only the tracts we want to fit
+  // the projection around
+
+  const tracts = {
+    type: 'FeatureCollection',
+    features: allTracts.features.filter(({ properties: { census_tract } }) =>
+      [36061018900, 36061021900].includes(+census_tract),
+    ),
+  };
+
+  // Extract census tract centroids
+
+  const centroids = feature(influxData, influxData.objects.tracts_centroids);
   // Create the paths that will become census tracts.
   // The `d` attribute won't be set until the resize function is called.
 
@@ -275,6 +264,10 @@ function makeMap() {
 
 // Call big bois
 
-const handleResize = makeMap();
+const handleResize = makeMap(influxData2020, '#map1');
 handleResize();
 window.addEventListener('resize', debounce(handleResize, 400));
+
+const handleResize2 = makeMap(influxData2019, '#map2');
+handleResize2();
+window.addEventListener('resize', debounce(handleResize2, 400));
