@@ -1,7 +1,7 @@
 @import "styles/spectate";
 
 // Uncomment the following line before publishing a News story
-// @import "styles/news-ellipsis";
+@import "styles/news-ellipsis";
 
 $campus-highlight: rgb(255, 148, 0);
 
@@ -166,5 +166,14 @@ $baseline-color: #aaa;
   b {
     padding: 4px;
     border-radius: 3px;
+  }
+}
+
+@media (max-width: 470px) {
+  .cover-hed header {
+    transform: translateY(-120%);
+    h1 {
+      font-size: 35px;
+    }
   }
 }

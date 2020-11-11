@@ -12,8 +12,8 @@ writeChanges <- function(date1, date2, filename) {
     write.csv(filename, row.names = FALSE)
 }
 
-# writeChanges("2020-08-24", "2020-10-26", "../data/2020-home_panel_change.csv")
-# writeChanges("2019-08-26", "2019-10-28", "../data/2019-home_panel_change.csv")
+writeChanges("2020-08-24", "2020-10-26", "../data/2020-home_panel_change.csv")
+writeChanges("2019-08-26", "2019-10-28", "../data/2019-home_panel_change.csv")
 
 writeChanges("2020-08", "2020-10", "../data/2020-home_panel_change.csv")
 writeChanges("2019-08", "2019-10", "../data/2019-home_panel_change.csv")
