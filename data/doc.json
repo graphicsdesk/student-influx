@@ -1,7 +1,7 @@
 {
   "date": "November 10, 2020",
-  "headline": "‘Competing interests’: Columbia cancelled housing contracts, so students moved into the city.",
-  "byline": "By <a href=\"https://www.columbiaspectator.com/contributors/Abby-Melbourne\">Abby Melbourne</a> and <a href=\"https://www.columbiaspectator.com/contributors/Stephanie-Lai\">Stephanie Lai</a>\nGraphic by <a href=\"https://www.columbiaspectator.com/contributors/Charlotte-Li\">Charlotte Li</a>",
+  "headline": "‘Competing interests’: Columbia canceled housing contracts, so 14,000 students moved into the city.",
+  "byline": "By <a href=\"https://www.columbiaspectator.com/contributors/Abby-Melbourne\">Abby Melbourne</a> and <a href=\"https://www.columbiaspectator.com/contributors/Stephanie-Lai\">Stephanie Lai</a>",
   "body": [
     {
       "type": "text",
@@ -9,27 +9,27 @@
     },
     {
       "type": "text",
-      "value": "Those living off-campus this semester entered a New York rental market upended by the COVID-19 crisis and some housing experts fear they have inserted themselves into the city’s landscape as dangerously competitive renters, which means … (whats the implication?)."
+      "value": "Those living off-campus this semester entered a New York rental market upended by the COVID-19 crisis as dangerously competitive renters, which could contribute to rising rent prices across West Harlem, housing experts said."
     },
     {
       "type": "graphic",
       "value": {
         "asset": "map.html",
         "title": "Census tracts around campus saw large population increases between August and October",
-        "caption": "These are estimates made using data provided by the location analysis company <a href=\"https://www.safegraph.com/covid-19-data-consortium\">SafeGraph</a>."
+        "caption": "These are estimates made using data provided by the location analysis company <a href=\"https://www.safegraph.com/covid-19-data-consortium\">SafeGraph</a>. Graphic by <a href=\"https://www.columbiaspectator.com/contributors/Charlotte-Li\">Charlotte Li</a>."
       }
     },
     {
       "type": "text",
-      "value": "Columbia, one of the largest real estate holders in New York City and holder of 150 apartment buildings in the Morningside Heights area, has a considerable stake in the future of off- campus housing. _____ Rocco, _______, categorizes as the University as a type of “anchor institution” that promotes land speculation and bursts of displacement as it is “a signal to developers that this area is ripe for investment”."
+      "value": "Columbia, one of the largest real estate holders in New York City and holder of 150 apartment buildings in the Morningside Heights area, has a considerable stake in the future of off-campus housing. Mary Rocco, a professor of urban studies at Barnard, categorizes the University as a type of “anchor institution” that promotes land speculation and bursts of displacement as its presence is “a signal to developers that this area is ripe for investment”."
     },
     {
       "type": "text",
-      "value": "At the beginning of the COVID-19 crisis in March 2020, New York placed a temporary ban on evictions across the state, before limiting the rule’s scope to tenants on unemployment or with other COVID-19 related financial difficulties. After a series of eviction moratorium extensions, Governor Cuomo announced in late September that tenants would be protected until the beginning of 2021. The measures accompany battles across the country to instate more robust rent freezes."
+      "value": "At the beginning of the COVID-19 crisis in March, New York placed a temporary ban on evictions across the state, before limiting the rule’s scope to tenants on unemployment or with other COVID-19 related financial difficulties. After a series of eviction moratorium extensions, Governor Cuomo announced in late September that tenants would be protected until the beginning of 2021. The measures accompany battles across the country to instate more robust rent freezes."
     },
     {
       "type": "text",
-      "value": "With the New York rental market in complete upheaval, all boroughs have seen record low median rents in comparison to the past decade. Manhattan alone has fallen below $3000—- marking the first time that three boroughs have seen year-over-year rent declines. As the likelihood of a COVID-19 vaccine becomes increasingly imminent, both landlords and housing lenders are eager to take advantage of a restored market, including students returning to colleges across the city."
+      "value": "With the New York rental market in complete upheaval, all boroughs have seen record low median rents in comparison to the past decade. Manhattan alone has fallen below $3000—marking the first time that three boroughs have seen year-over-year rent declines. As the likelihood of a COVID-19 vaccine becomes increasingly imminent, both landlords and housing lenders are eager to take advantage of a restored market, including students returning to colleges across the city."
     },
     {
       "type": "text",
@@ -37,7 +37,7 @@
     },
     {
       "type": "text",
-      "value": "But while New York City has seen an increase in supply in general, the people who are moving are economically able to, said David Mazzuca, an instructor at the National Center for Disaster Preparedness at Columbia University’s Earth Institute who is specialized in housing. <b>[insert stat about income levels in West Harlem compared to average Manhattan #s] </b>,this would not apply to much of West Harlem or its tenants."
+      "value": "But while New York City has seen an increase in supply in general, the people who are moving are economically able to, said David Mazzuca, an instructor at the National Center for Disaster Preparedness at Columbia’s Earth Institute who specializes in housing recovery. <b>As CD 9’s average per capita income is just over half of the total Manhattan average</b>,this would not apply to much of West Harlem or its tenants."
     },
     {
       "type": "text",
@@ -45,15 +45,15 @@
     },
     {
       "type": "text",
-      "value": "“Anytime you have a neighborhood that has an increase in residents who didn't live here about ten years prior, the price of rentals could increase,” Mazzuca said."
+      "value": "“Anytime you have a neighborhood that has an increase in residents who didn't live here about 10 years prior, the price of rentals could increase,” Mazzuca said."
     },
     {
       "type": "text",
-      "value": "In an email to Barnard students on October 27th, Dean Leslie Grinage announced that juniors and seniors will be able to carry their financial aid off-campus to rent accomodations in the local area."
+      "value": "In an email to Barnard students on Oct. 27, Dean Leslie Grinage announced that juniors and seniors will be able to carry their financial aid off-campus to rent accomodations in the local area."
     },
     {
       "type": "text",
-      "value": "“Landlords are excited to see Columbia students come in,” said Karen Chapple, CC ‘<b>?</b> and Professor of City and Regional Planning at University of California, Berkeley. “That helps them realize that there is a replacement market there. So, a lot of them may take advantage of the COVID-19 crisis to prematurely evict people and get ready for the next uptick.”"
+      "value": "“Landlords are excited to see Columbia students come in,” said Karen Chapple, CC ’89 and Professor of City and Regional Planning at the University of California, Berkeley. “That helps them realize that there is a replacement market there. So, a lot of them may take advantage of the COVID-19 crisis to prematurely evict people and get ready for the next uptick.”"
     },
     {
       "type": "text",
@@ -69,15 +69,7 @@
     },
     {
       "type": "text",
-      "value": "The issue: the number of students seeking off-campus will not likely stay at its current rate in future years once the University reinstates housing contracts. In other words, the demand for housing now may not sustain itself in the long-term, but rent prices could remain at the rate set in the short term."
-    },
-    {
-      "type": "text",
-      "value": "“When you fill these vacancies with students, realtors and landlords think the actual market is fine, but they’ve just put a bandaid over it,” Hanzal said. “It looks like a solid market when it's not, and now that students can rent those, they can keep those rents at a higher rate.”"
-    },
-    {
-      "type": "text",
-      "value": "The future for some student renters remains uncertain. Hannah Prensky, BC ‘22, found a studio in Harlem this fall so she could return to work in a Barnard lab. While she noted campus housing would be cheaper and more social, she is hesitant to return."
+      "value": "Hannah Prensky, BC ‘22, found a studio in Harlem this fall so she could return to work in a Barnard lab. While the move proved useful for her learning experience,  the future for her living situation remains uncertain. While she noted campus housing would be cheaper and more social, she is hesitant to return."
     },
     {
       "type": "text",
@@ -93,6 +85,22 @@
     },
     {
       "type": "text",
+      "value": "One thing holds true: they hope to return when possible."
+    },
+    {
+      "type": "text",
+      "value": "Community members like Hanzal believe the short-term growth in the number of students seeking off-campus will not likely stay at its current rate in future years once the University reinstates housing contracts. But Hanzal foresees realtors and landlords applying this short-term demand and market price in the long-term."
+    },
+    {
+      "type": "text",
+      "value": "In other words, the demand for housing now may not sustain itself in future years, but rent prices could remain at the rate set when thousands of Columbia students moved into the neighborhood."
+    },
+    {
+      "type": "text",
+      "value": "“When you fill these vacancies with students, realtors and landlords think the actual market is fine, but they’ve just put a bandaid over it,” Hanzal said. “It looks like a solid market when it's not, and now that students can rent those, they can keep those rents at a higher rate.”"
+    },
+    {
+      "type": "text",
       "value": "According to Chapple, it is difficult to predict what the long-term ramifications of an influx of off-campus housing seeking students will mean for the city. The future will largely depend on which neighborhoods will experience concentration of students.  Upper Manhattan, like much of the Bronx, is experiencing ongoing displacement of residents. Displacement when not coupled with robust investment, however, does not signal impending gentrification, she noted."
     },
     {
@@ -101,19 +109,19 @@
     },
     {
       "type": "text",
-      "value": "Chapple also sees a potential future in which remote learning becomes a more financially appealing model for universities across the country."
-    },
-    {
-      "type": "text",
-      "value": "“ It’s very expensive to provide a dorm bed even in a triple. Just new construction whether you are talking about the Bay Area or New York city is just very expensive,” she said. “The question becomes can we force a paradigm shift where we do more online learning somewhere in those first two years so we don’t have to provide all those beds.”"
-    },
-    {
-      "type": "text",
-      "value": "Columbia students returning to live off-campus pose as unequal competitors in the housing market, and this semester has made the divide in wealth and opportunity present in the university population even more apparent to some students. For 20 percent of Upper West Side residents, the median rent accounts for more than 50 percent of their household income- an infeasible cost for many students’ families.  As Cannon began his time at Columbia, the shock at wealth disparities between his classmates turned into acceptance."
+      "value": "Columbia students returning to live off-campus pose as unequal competitors in the housing market, and this semester has made the divide in wealth and opportunity present in the university population even more apparent to some students. For 20 percent of Upper West Side residents, the median rent accounts for more than 50 percent of their household income- an infeasible cost for many students’ families.  As Mason Cannon, CC ‘24, began his time at Columbia, the shock at wealth disparities between his classmates turned into acceptance."
     },
     {
       "type": "text",
       "value": "“I definitely think there is unequal footing but it would have existed either way. There's some kids who are incredibly wealthy, like kids in my Zoom classes whose parents can afford apartments on the Upper East Side,” Cannon said. “That kind of wealth is going to manifest itself in so many ways other than that opportunity and in the end they’re going to have a leg up no matter what and at some point you just come to accept that.”"
+    },
+    {
+      "type": "text",
+      "value": "This disparity holds true for Cannon, who did not imagine spending his first year at Columbia at home in Albuquerque, New Mexico, where residents pride themselves for their laid-back attitudes and identity as the “land of manana”."
+    },
+    {
+      "type": "text",
+      "value": "“Being in New York everything’s faster and everything is focused,” Cannon said. “It’s definitely hard to be in a city that’s really focused on not taking things too seriously when I was hoping to be in a city where everything is rushed and happening right now.”"
     },
     {
       "type": "text",

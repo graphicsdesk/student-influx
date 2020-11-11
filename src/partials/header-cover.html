@@ -1,10 +1,12 @@
 <div class="cover cover-hed">
-  <if condition="top.cover !== undefined">
-    <img src="{{ top.cover }}" />
-  </if>
+  <img
+    src="https://cloudfront-us-east-1.images.arcpublishing.com/spectator/J7USDTWSWFBUJGEV6G6OEL3N2Q.JPG"
+  />
 
   <header>
-    <h1 id="headline">{{ headline }}</h1>
+    <h1 id="headline" style="text-align: center; margin-top: 10px">
+      {{ headline }}
+    </h1>
     <if condition="typeof deck !== 'undefined'">
       <p class="deck">{{ deck }}</p>
     </if>
@@ -13,7 +15,12 @@
   </header>
 </div>
 
-<p class="cover-caption">{{ top.caption }}</p>
+<p class="cover-caption">
+  Photography by
+  <a href="https://www.columbiaspectator.com/contributors/Olivia-Treynor/"
+    >Olivia Treynor</a
+  >.
+</p>
 
 <div class="g-body">
   <p class="inline-credits">
