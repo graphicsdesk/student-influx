@@ -3,20 +3,20 @@ import { geoPath, geoAlbers } from 'd3-geo';
 import { scaleSequential } from 'd3-scale';
 import { interpolateSpectral as interpolateViridis } from 'd3-scale-chromatic';
 import { feature } from 'topojson-client';
-import { DEFS, LABELS, CAMPUS_LABEL_LOC } from './constants';
+import { DEFS, LABELS, CAMPUS_LABEL_LOC, c20, c19 } from './constants';
 import influxData2020 from '../../data/2020-influx_data.json';
 import influxData2019 from '../../data/2019-influx_data.json';
 import debounce from 'just-debounce';
 
 // Set constants
 
-const WIDTH = 720;
+const WIDTH = 840;
 const ARROW_SIZE = 45;
 const mapsContainer = select('#maps-container');
 
 // Main function that draws the map
 
-function makeMap(influxData, mapId) {
+function makeMap(mapId) {
   // Make containers
 
   const div = mapsContainer.append('div').attr('class', 'map-container');
@@ -24,7 +24,8 @@ function makeMap(influxData, mapId) {
 
   const pathContainer = svg.append('g').attr('class', 'features');
   const baselineContainer = svg.append('g').attr('class', 'baseline');
-  const chartContainer = svg.append('g').attr('class', 'slopes');
+  const chart19Container = svg.append('g').attr('class', 'slopes-19');
+  const chart20Container = svg.append('g').attr('class', 'slopes-20');
   const textContainer = svg
     .append('g')
     .attr('class', 'text')
@@ -80,33 +81,38 @@ function makeMap(influxData, mapId) {
     .join('tspan')
     .text(d => d);
 
-  const legend = select('.legend');
-
   // Extract census tract features (contains all tracts in Manhattan)
 
-  const allTracts = feature(influxData, influxData.objects.tracts);
+  const allTracts2020 = feature(influxData2020, influxData2020.objects.tracts);
 
   // Create a separate GeoJSON object that holds only the tracts we want to fit
   // the projection around
 
   const tracts = {
     type: 'FeatureCollection',
-    features: allTracts.features.filter(({ properties: { census_tract } }) =>
-      [36061018900, 36061021900].includes(+census_tract),
+    features: allTracts2020.features.filter(
+      ({ properties: { census_tract } }) =>
+        [36061018900, 36061021900].includes(+census_tract),
     ),
   };
 
   // Extract census tract centroids
 
-  const centroids = feature(influxData, influxData.objects.tracts_centroids);
+  const centroids2020 = feature(
+    influxData2020,
+    influxData2020.objects.tracts_centroids,
+  );
+  const centroids2019 = feature(
+    influxData2019,
+    influxData2019.objects.tracts_centroids,
+  );
+
   // Create the paths that will become census tracts.
   // The `d` attribute won't be set until the resize function is called.
 
-  const colorScale = scaleSequential(interpolateViridis).domain([-0.5, 0.5]);
-
   const paths = pathContainer
     .selectAll('path')
-    .data(allTracts.features)
+    .data(allTracts2020.features)
     .enter()
     .append('path')
     .classed(
@@ -116,37 +122,41 @@ function makeMap(influxData, mapId) {
 
   // Create the things that will become the slope chart (e.g. line, arrow, circles)
 
-  const circles = chartContainer
+  const circles = chart20Container
     .selectAll('circle')
-    .data(centroids.features)
+    .data(centroids2020.features)
     .enter()
     .append('circle')
     .attr('r', 3);
 
   const baseline = baselineContainer
     .selectAll('line')
-    .data(centroids.features)
+    .data(centroids2020.features)
     .enter()
     .append('line');
 
   const text = textContainer
     .selectAll('text')
-    .data(centroids.features)
+    .data(centroids2020.features)
     .enter()
     .append('text')
     .classed('white-background', function () {
       return this.parentNode.__data__;
     });
 
-  const slopes = chartContainer
+  const slopes2020 = chart20Container
     .selectAll('line')
-    .data(centroids.features)
+    .data(centroids2020.features)
     .enter()
     .append('line')
-    .attr('stroke', d =>
-      colorScale((d.properties.oct - d.properties.aug) / d.properties.aug),
-    )
-    .attr('stroke', 'black');
+    .attr('stroke', c20);
+
+  const slopes2019 = chart19Container
+    .selectAll('line')
+    .data(centroids2019.features)
+    .enter()
+    .append('line')
+    .attr('stroke', c19);
 
   // Make a handleResize method that handles the things that depend on
   // width (path generator, paths, and svg)
@@ -156,7 +166,7 @@ function makeMap(influxData, mapId) {
 
     const width = Math.min(WIDTH, document.documentElement.clientWidth - 30);
     const isMobile = width < 460;
-    const height = (width * 36) / 30;
+    const height = (width * (isMobile ? 36 : 27)) / 30;
     svg.attr('width', width);
     svg.attr('height', height);
 
@@ -190,7 +200,12 @@ function makeMap(influxData, mapId) {
     // Modify the positions of the elements
 
     circles.attr('cx', x).attr('cy', y);
-    slopes
+    slopes2020
+      .attr('x1', x)
+      .attr('y1', y)
+      .attr('x2', endpointX)
+      .attr('y2', endpointY);
+    slopes2019
       .attr('x1', x)
       .attr('y1', y)
       .attr('x2', endpointX)
@@ -215,7 +230,7 @@ function makeMap(influxData, mapId) {
       .attr('y2', y);
 
     riverLabel
-      .attr('x', isMobile ? 0 : width / 10)
+      .attr('x', isMobile ? 0 : width / 6)
       .attr('y', (_, i) => height / 2 + i * 22);
 
     campusLabel
@@ -237,25 +252,6 @@ function makeMap(influxData, mapId) {
       .attr('y', function (_, i) {
         return albersprojection(this.parentNode.__data__.loc)[1] + i * 20;
       });
-
-    legend
-      .selectAll('line')
-      .attr('x1', 0)
-      .attr('y1', 0)
-      .attr('x2', 50)
-      .attr('y2', 0);
-
-    legend
-      .select('.slope')
-      .attr('x1', 0)
-      .attr('y1', 0)
-      .attr('x2', 25)
-      .attr('y2', -36);
-
-    legend.select('circle').attr('cx', 0).attr('cy', 0);
-
-    legend.select('text').attr('y', 0);
-    legend.selectAll('tspan').attr('x', 0);
   }
 
   // Call the resize function once; attach it to a resize listener
@@ -266,5 +262,13 @@ function makeMap(influxData, mapId) {
 
 // Call the big fn
 
-makeMap(influxData2019, '#map2019');
-// makeMap(influxData2020, '#map2020');
+// makeMap(influxData2019, '#map2019');
+makeMap(influxData2020, '#map2020');
+
+const mapTitle = select('p.map-title');
+mapTitle.html(
+  mapTitle
+    .html()
+    .replace('2020', `<span style="color:${c20}">2020</span>`)
+    .replace('2019', `<span style="color:${c19}">2019</span>`),
+);

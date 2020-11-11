@@ -3,7 +3,7 @@
 // Uncomment the following line before publishing a News story
 // @import "styles/news-ellipsis";
 
-$campus-highlight: rgb(248, 113, 24);
+$campus-highlight: rgb(255, 148, 0);
 
 .map-container svg {
   display: block;
@@ -38,8 +38,13 @@ $campus-highlight: rgb(248, 113, 24);
     stroke: #bcbcbc;
   }
 
-  g.slopes line {
-    marker-end: url(#map-arrow-open);
+  g.slopes-20 line {
+    marker-end: url(#map-arrow-20);
+    stroke-width: 2;
+  }
+
+  g.slopes-19 line {
+    marker-end: url(#map-arrow-19);
     stroke-width: 2;
   }
 
@@ -101,8 +106,11 @@ $campus-highlight: rgb(248, 113, 24);
   }
 
   .slope {
-    marker-end: url(#map-arrow-open);
     stroke-width: 2;
+  }
+
+  .year {
+    transform: translate(2px, -2px);
   }
 
   .baseline {
