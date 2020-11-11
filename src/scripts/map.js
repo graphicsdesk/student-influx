@@ -267,4 +267,4 @@ function makeMap(influxData, mapId) {
 // Call the big fn
 
 makeMap(influxData2020, '#map1');
-makeMap(influxData2019, '#map2');
+// makeMap(influxData2019, '#map2');
