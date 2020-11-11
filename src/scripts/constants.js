@@ -4,8 +4,8 @@
 export const c20 = 'rgb(33, 140, 146)';
 export const c19 = 'rgb(132, 185, 216)';
 
-export const baselineColor = '#ababab';
-export const shadedColor = '#e4e4e4';
+export const baselineColor = '#aaa';
+export const shadedColor = '#f1f1f1';
 
 // <defs> for SVG
 

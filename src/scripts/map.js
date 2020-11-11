@@ -1,9 +1,15 @@
 import { select } from 'd3-selection';
 import { geoPath, geoAlbers } from 'd3-geo';
 import { feature } from 'topojson-client';
-import { DEFS, LABELS, CAMPUS_LABEL_LOC, c20, c19, shadedColor } from './constants';
-import influxData2020 from '../../data/2020-influx_data.json';
-import influxData2019 from '../../data/2019-influx_data.json';
+import {
+  DEFS,
+  LABELS,
+  CAMPUS_LABEL_LOC,
+  c20,
+  c19,
+  shadedColor,
+} from './constants';
+import influxData from '../../data/influx_data.json';
 import debounce from 'just-debounce';
 
 // Set constants
@@ -81,77 +87,75 @@ function makeMap() {
 
   // Extract census tract features (contains all tracts in Manhattan)
 
-  const allTracts2020 = feature(influxData2020, influxData2020.objects.tracts);
+  const allTracts = feature(influxData, influxData.objects.tracts);
 
   // Create a separate GeoJSON object that holds only the tracts we want to fit
   // the projection around
 
   const tracts = {
     type: 'FeatureCollection',
-    features: allTracts2020.features.filter(
-      ({ properties: { census_tract } }) =>
-        [36061018900, 36061021900].includes(+census_tract),
+    features: allTracts.features.filter(({ properties: { census_tract } }) =>
+      [36061018900, 36061021900].includes(+census_tract),
     ),
   };
 
   // Extract census tract centroids
 
-  const centroids2020 = feature(
-    influxData2020,
-    influxData2020.objects.tracts_centroids,
-  );
-  const centroids2019 = feature(
-    influxData2019,
-    influxData2019.objects.tracts_centroids,
-  );
+  const centroids = feature(influxData, influxData.objects.tracts_centroids);
 
   // Create the paths that will become census tracts.
   // The `d` attribute won't be set until the resize function is called.
 
   const paths = pathContainer
     .selectAll('path')
-    .data(allTracts2020.features)
+    .data(allTracts.features)
     .enter()
     .append('path')
     .classed(
       'columbia-outline',
       d => d.properties.census_tract === '36061020300',
     );
+  paths
+    .filter(
+      ({ properties: { aug20, oct20, aug19, oct19 } }) =>
+        (oct20 - aug20) / aug20 > (oct19 - aug19) / aug19,
+    )
+    .style('fill', shadedColor);
 
   // Create the things that will become the slope chart (e.g. line, arrow, circles)
 
   const circles = chart20Container
     .selectAll('circle')
-    .data(centroids2020.features)
+    .data(centroids.features)
     .enter()
     .append('circle')
     .attr('r', 3);
 
   const baseline = baselineContainer
     .selectAll('line')
-    .data(centroids2020.features)
+    .data(centroids.features)
     .enter()
     .append('line');
 
-  const text = textContainer
+  /* const text = textContainer
     .selectAll('text')
-    .data(centroids2020.features)
+    .data(centroids.features)
     .enter()
     .append('text')
     .classed('white-background', function () {
       return this.parentNode.__data__;
-    });
+    }); */
 
   const slopes2020 = chart20Container
     .selectAll('line')
-    .data(centroids2020.features)
+    .data(centroids.features)
     .enter()
     .append('line')
     .attr('stroke', c20);
 
   const slopes2019 = chart19Container
     .selectAll('line')
-    .data(centroids2019.features)
+    .data(centroids.features)
     .enter()
     .append('line')
     .attr('stroke', c19);
@@ -185,13 +189,17 @@ function makeMap() {
 
     const x = d => albersprojection(d.geometry.coordinates)[0];
     const y = d => albersprojection(d.geometry.coordinates)[1];
-    const endpointX = d => {
-      const slope = (d.properties.oct - d.properties.aug) / d.properties.aug;
+    const endpointX = year => d => {
+      const slope =
+        (d.properties['oct' + year] - d.properties['aug' + year]) /
+        d.properties['aug' + year];
       const x = arrowSize * Math.cos(Math.atan(slope * 2));
       return albersprojection(d.geometry.coordinates)[0] + x;
     };
-    const endpointY = d => {
-      const slope = (d.properties.oct - d.properties.aug) / d.properties.aug;
+    const endpointY = year => d => {
+      const slope =
+        (d.properties['oct' + year] - d.properties['aug' + year]) /
+        d.properties['aug' + year];
       const y = arrowSize * Math.sin(Math.atan(slope) * 2);
       return albersprojection(d.geometry.coordinates)[1] - y;
     };
@@ -202,15 +210,15 @@ function makeMap() {
     slopes2020
       .attr('x1', x)
       .attr('y1', y)
-      .attr('x2', endpointX)
-      .attr('y2', endpointY);
+      .attr('x2', endpointX(20))
+      .attr('y2', endpointY(20));
     slopes2019
       .attr('x1', x)
       .attr('y1', y)
-      .attr('x2', endpointX)
-      .attr('y2', endpointY);
+      .attr('x2', endpointX(19))
+      .attr('y2', endpointY(19));
 
-    text
+    /* text
       .attr('x', x)
       .attr('y', y)
       .text(d => {
@@ -220,7 +228,7 @@ function makeMap() {
           difference < 10 ? difference.toFixed(1) : Math.round(difference);
         if (difference > 0) return '+' + difference + '%';
         else return '–' + Math.abs(difference) + '%';
-      });
+      }); */
 
     baseline
       .attr('x1', x)
@@ -269,5 +277,5 @@ mapTitle.html(
     .html()
     .replace('2020', `<span style="color: ${c20}">2020</span>`)
     .replace('2019', `<span style="color: ${c19}">2019</span>`)
-    .replace('<b>', `<b style="background-color: ${shadedColor}">`),
+    .replace('<b>', `<b style="background-color: ${'#e6e6e6'/* shadedColor */}">`),
 );
