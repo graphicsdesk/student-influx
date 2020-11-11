@@ -136,6 +136,10 @@ $baseline-color: #aaa;
       display: block;
     }
 
+    .pct-label {
+      transform: translate(3px, -17px);
+    }
+
     transform: translateY(146px);
   }
 

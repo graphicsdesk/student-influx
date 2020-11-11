@@ -168,7 +168,7 @@ function makeMap() {
 
     const width = Math.min(WIDTH, document.documentElement.clientWidth - 30);
     const isMobile = width < 460;
-    const height = (width * (isMobile ? 36 : 29)) / 30;
+    const height = (width * (isMobile ? 36 : 28)) / 30;
     arrowSize = isMobile ? 32 : 45;
     svg.attr('width', width);
     svg.attr('height', height);
