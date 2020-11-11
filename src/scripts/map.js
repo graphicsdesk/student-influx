@@ -10,21 +10,17 @@ import debounce from 'just-debounce';
 
 // Set constants
 
-const WIDTH = 680;
+const WIDTH = 720;
 const ARROW_SIZE = 45;
 const mapsContainer = select('#maps-container');
 
 // Main function that draws the map
 
-function makeMap(influxData, year) {
+function makeMap(influxData, mapId) {
   // Make containers
 
   const div = mapsContainer.append('div').attr('class', 'map-container');
-  div.append('p').attr('class', 'map-title year-label').text(year);
-  const svg = div
-    .append('svg')
-    .attr('id', 'map-' + year)
-    .html(DEFS);
+  const svg = div.append('svg').attr('id', mapId).html(DEFS);
 
   const pathContainer = svg.append('g').attr('class', 'features');
   const baselineContainer = svg.append('g').attr('class', 'baseline');
@@ -96,7 +92,7 @@ function makeMap(influxData, year) {
   const tracts = {
     type: 'FeatureCollection',
     features: allTracts.features.filter(({ properties: { census_tract } }) =>
-      [36061018900, 36061021303].includes(+census_tract),
+      [36061018900, 36061021900].includes(+census_tract),
     ),
   };
 
@@ -270,5 +266,5 @@ function makeMap(influxData, year) {
 
 // Call the big fn
 
-makeMap(influxData2019, 2019);
-makeMap(influxData2020, 2020);
+makeMap(influxData2019, '#map2019');
+// makeMap(influxData2020, '#map2020');
